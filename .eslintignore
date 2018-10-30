@@ -1,0 +1,8 @@
+/build/**
+/out/**
+/dist/**
+/tmp/**
+/cache/**
+/docs/**
+/jsdoc/**
+.next/**
