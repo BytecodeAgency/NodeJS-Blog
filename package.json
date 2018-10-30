@@ -5,5 +5,9 @@
   "main": "app.js",
   "author": "Luciano Nooijen <luciano@bytecode.nl>",
   "license": "GPL-3.0",
-  "private": false
+  "private": false,
+  "scripts": {
+    "start": "exit 0",
+    "test": "exit 0"
+  }
 }

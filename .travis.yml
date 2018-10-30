@@ -1,0 +1,26 @@
+language: node_js
+
+node_js:
+  - "lts/*"
+  - "10"
+  - "8"
+
+notifications:
+  email:
+    receipients:
+      - luciano@bytecode.nl
+
+# before_install:
+
+install:
+  - yarn
+
+# before_script:
+
+script:
+  - yarn run test
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
