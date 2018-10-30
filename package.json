@@ -7,7 +7,18 @@
   "license": "GPL-3.0",
   "private": false,
   "scripts": {
+    "dev": "exit 0",
     "start": "exit 0",
-    "test": "exit 0"
+    "test": "yarn run test:all",
+    "test:dev": "exit 0",
+    "test:all": "yarn run test:unit && yarn run test:integration && yarn run test:performance",
+    "test:unit": "exit 0",
+    "test:integration": "exit 0",
+    "test:performance": "exit 0",
+    "coverage": "exit 0",
+    "migrate": "exit 0"
+  },
+  "dependencies": {
+    "yarn": "^1.12.1"
   }
 }
