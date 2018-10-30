@@ -19,16 +19,14 @@ POST routes are protected
 # Todo
 
 * Support .env
-* Add Typescript
 * Add TDD configuration
 * Create Restify/Express server
 * Configure Knex and migrations
 * Configure unit/integration testing
 * Add code coverage using Istanbul/NYC
-* Integrate Sqreen, Helmet or similar
+* Integrate Helmet or similar
 * Add authentication
 * Create documentation, API documentation using Swagger
 * Add performance testing script
 * Later on, maybe add CLI for creating admin users
 * Later on, add support for caching results
-

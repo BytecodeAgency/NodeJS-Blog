@@ -21,6 +21,8 @@
     "reinstall": "rm -rf node_modules && yarn"
   },
   "dependencies": {
+    "dotenv": "^6.1.0",
+    "sqreen": "^1.26.2",
     "yarn": "^1.12.1"
   },
   "devDependencies": {
