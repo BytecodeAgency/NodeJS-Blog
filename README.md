@@ -22,8 +22,7 @@ POST routes are protected
 * Add TDD configuration
 * Create Restify/Express server
 * Configure Knex and migrations
-* Configure unit/integration testing
-* Add code coverage using Istanbul/NYC
+* See if https://github.com/Vincit/knex-db-manager might be a viable option
 * Integrate Helmet or similar
 * Add authentication
 * Create documentation, API documentation using Swagger
