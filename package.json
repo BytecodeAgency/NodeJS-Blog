@@ -1,0 +1,9 @@
+{
+  "name": "node-blog-api",
+  "version": "1.0.0",
+  "description": "A blog API built in NodeJS",
+  "main": "app.js",
+  "author": "Luciano Nooijen <luciano@bytecode.nl>",
+  "license": "GPL-3.0",
+  "private": false
+}
