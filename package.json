@@ -16,11 +16,12 @@
     "test:api": "NODE_ENV=test jest",
     "test:performance": "NODE_ENV=test exit 0",
     "coverage": "NODE_ENV=test jest --coverage",
-    "migrate": "exit 0",
+    "migrate": "knex migrate:latest",
     "reinstall": "rm -rf node_modules && yarn"
   },
   "dependencies": {
     "dotenv": "^6.1.0",
+    "knex": "^0.15.2",
     "sqreen": "^1.26.2",
     "yarn": "^1.12.1"
   },
