@@ -15,7 +15,6 @@ docs/
 .env
 .npm
 coverage
-docs/
 .cache/
 node_modules/
 npm-debug.log*
