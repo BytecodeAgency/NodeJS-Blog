@@ -18,15 +18,15 @@ POST routes are protected
 
 # Todo
 
-* Add TDD configuration, with SQLite for testing purposes
+* Add TDD configuration
+* For testing add SQLite support
 * Create Restify/Express server
 * See if https://github.com/Vincit/knex-db-manager might be a viable option
 * Integrate Helmet or similar
 * Add authentication
-* Create DB structure in Knex
 * Configure routing
 * Create documentation, API documentation using Swagger
-* Add performance testing script
+* Add performance testing script, maybe using https://k6.io/
 * Later on, maybe add CLI for creating admin users
 * Later on, add support for caching results
 

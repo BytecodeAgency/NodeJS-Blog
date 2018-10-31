@@ -10,11 +10,8 @@
     "dev": "nodemon",
     "start": "node app.js",
     "lint": "eslint --ext .jsx,.js,.ts .",
-    "test": "NODE_ENV=test yarn run test:all",
-    "test:dev": "NODE_ENV=test jest --watch",
-    "test:all": "yarn run test:api && yarn run test:performance",
-    "test:api": "NODE_ENV=test jest",
-    "test:performance": "NODE_ENV=test exit 0",
+    "test": "NODE_ENV=test jest",
+    "test:watch": "NODE_ENV=test jest --watch",
     "coverage": "NODE_ENV=test jest --coverage",
     "migrate": "knex migrate:latest",
     "reinstall": "rm -rf node_modules && yarn"
