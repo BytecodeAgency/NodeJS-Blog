@@ -29,6 +29,7 @@ POST routes are protected
 * Add performance testing script, maybe using https://k6.io/
 * Later on, maybe add CLI for creating admin users
 * Later on, add support for caching results
+* Later on, add a CLI/application for loading .md files into the database as posts
 
 ## Notes
 
