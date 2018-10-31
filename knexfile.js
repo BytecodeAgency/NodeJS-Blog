@@ -1,4 +1,4 @@
-// Update with your config settings.
+require('dotenv').config();
 
 // eslint-disable-next-line
 const {
@@ -9,7 +9,7 @@ const {
     DB_PASS,
 } = process.env;
 
-module.export = {
+module.exports = {
     client: DB_CLIENT,
     connection: {
         host: DB_HOST,

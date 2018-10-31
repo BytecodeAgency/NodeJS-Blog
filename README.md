@@ -18,7 +18,7 @@ POST routes are protected
 
 # Todo
 
-* Add TDD configuration
+* Add TDD configuration, with SQLite for testing purposes
 * Create Restify/Express server
 * See if https://github.com/Vincit/knex-db-manager might be a viable option
 * Integrate Helmet or similar
