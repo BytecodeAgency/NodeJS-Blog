@@ -1,0 +1,1 @@
+const controllers = require('../controllers');
