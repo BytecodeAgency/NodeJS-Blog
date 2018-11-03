@@ -1,7 +1,7 @@
 {
-  "name": "node-blog-api",
-  "version": "1.0.0",
-  "description": "A blog API built in NodeJS",
+  "name": "nodejs-blog",
+  "version": "0.0.1",
+  "description": "A blog API built in NodeJS that can be used as a standalone application, or included in a NodeJS application",
   "main": "app.js",
   "author": "Luciano Nooijen <luciano@bytecode.nl>",
   "license": "GPL-3.0",
@@ -17,8 +17,13 @@
     "reinstall": "rm -rf node_modules && yarn"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
     "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "helmet": "^3.14.0",
     "knex": "^0.15.2",
+    "morgan": "^1.9.1",
     "pg": "^7.6.0",
     "sqreen": "^1.26.2",
     "yarn": "^1.12.1"
@@ -38,6 +43,7 @@
     "nodemon": "^1.18.5",
     "prettier": "^1.14.3",
     "prettier-eslint": "^8.8.2",
-    "prettierrc": "^0.0.0-5"
+    "prettierrc": "^0.0.0-5",
+    "response-time": "^2.3.2"
   }
 }
