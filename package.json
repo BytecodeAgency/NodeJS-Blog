@@ -2,13 +2,13 @@
   "name": "nodejs-blog",
   "version": "0.0.1",
   "description": "A blog API built in NodeJS that can be used as a standalone application, or included in a NodeJS application",
-  "main": "app.js",
+  "main": "server.js",
   "author": "Luciano Nooijen <luciano@bytecode.nl>",
   "license": "GPL-3.0",
   "private": false,
   "scripts": {
     "dev": "nodemon",
-    "start": "node app.js",
+    "start": "node server.js",
     "lint": "eslint --ext .jsx,.js,.ts .",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
@@ -44,6 +44,7 @@
     "prettier": "^1.14.3",
     "prettier-eslint": "^8.8.2",
     "prettierrc": "^0.0.0-5",
-    "response-time": "^2.3.2"
+    "response-time": "^2.3.2",
+    "supertest": "^3.3.0"
   }
 }

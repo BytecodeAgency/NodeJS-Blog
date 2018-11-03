@@ -1,5 +1,13 @@
+const request = require('supertest');
 const app = require('../app');
 
-test('Jest should work', () => {
-    expect(1).toBe(1);
+describe('Test the status paths', () => {
+    test('The GET / route should give status code 200', async () => {
+        const response = await request(app).get('/');
+        expect(response.statusCode).toBe(200);
+    });
+    test('The GET /status route should give status code 200', async () => {
+        const response = await request(app).get('/status');
+        expect(response.statusCode).toBe(200);
+    });
 });
