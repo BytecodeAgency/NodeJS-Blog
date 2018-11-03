@@ -10,9 +10,9 @@
     "dev": "nodemon",
     "start": "node server.js",
     "lint": "eslint --ext .jsx,.js,.ts .",
-    "test": "NODE_ENV=test jest",
-    "test:watch": "NODE_ENV=test jest --watch",
-    "coverage": "NODE_ENV=test jest --coverage",
+    "test": "NODE_ENV=TEST jest",
+    "test:watch": "NODE_ENV=TEST jest --watch",
+    "coverage": "NODE_ENV=TEST jest --coverage",
     "migrate": "knex migrate:latest",
     "reinstall": "rm -rf node_modules && yarn"
   },
@@ -45,6 +45,7 @@
     "prettier-eslint": "^8.8.2",
     "prettierrc": "^0.0.0-5",
     "response-time": "^2.3.2",
+    "sqlite3": "^4.0.3",
     "supertest": "^3.3.0"
   }
 }
