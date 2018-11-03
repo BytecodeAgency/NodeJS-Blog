@@ -7,6 +7,10 @@
 ehthumbs.db
 Thumbs.db
 
+# Databases
+*.sqlite
+*.sqlite3
+
 # NodeJS
 build/
 dist/
