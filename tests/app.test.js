@@ -1,13 +1,12 @@
-const request = require('supertest');
-const app = require('../app');
+const knex = require('../helpers/database');
+const databaseSetup = require('./config/database-setup');
 
-describe('Test the status paths', () => {
-    test('The GET / route should give status code 200', async () => {
-        const response = await request(app).get('/');
-        expect(response.statusCode).toBe(200);
-    });
-    test('The GET /status route should give status code 200', async () => {
-        const response = await request(app).get('/status');
-        expect(response.statusCode).toBe(200);
+beforeEach(() => databaseSetup());
+
+describe('Test if test database is configured correctly', () => {
+    test('Jest should create a test database', async () => {
+        expect.assertions(1);
+        const data = await knex.select().table('authors');
+        expect(data.length).toBeGreaterThan(0);
     });
 });

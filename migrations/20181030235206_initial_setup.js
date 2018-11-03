@@ -41,7 +41,7 @@ const createRelatedArticlesTable = table => {
     table.integer('related_article_id').notNullable().references('id').inTable('articles');
 };
 
-exports.up = (knex, Promise) => {
+module.exports.up = (knex, Promise) => {
     return Promise.all([
         knex.schema.createTable('users', table => createUsersTable(table)),
         knex.schema.createTable('authors', table => createAuthorsTable(table)),
@@ -51,7 +51,7 @@ exports.up = (knex, Promise) => {
     ]);
 };
 
-exports.down = (knex, Promise) => {
+module.exports.down = (knex, Promise) => {
     return Promise.all([
         knex.schema.dropTable('related_articles'),
         knex.schema.dropTable('article_content'),
