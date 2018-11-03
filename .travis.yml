@@ -1,5 +1,8 @@
 language: node_js
 
+services:
+  - postgresql
+
 node_js:
   - "lts/*"
   - "10"
@@ -10,13 +13,16 @@ notifications:
     receipients:
       - luciano@bytecode.nl
 
-# before_install:
+before_install:
+  - cp .env.example .env
 
 install:
   - yarn
-  - cp .env.example .env
 
-# before_script:
+before_script:
+  - psql -c 'CREATE USER root WITH PASSWORD "root";' -U postgres
+  - psql -c 'CREATE DATABASE blog_test;' -U postgres
+  - psql -c 'GRANT ALL PRIVILEGES ON DATABASE blog_test TO root;' -U postgres
 
 script:
   - yarn run test
