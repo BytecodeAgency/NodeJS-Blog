@@ -30,6 +30,7 @@ POST routes are protected
 * Later on, maybe add CLI for creating admin users
 * Later on, add support for caching results
 * Later on, add a CLI/application for loading .md files into the database as posts
+* Make sure the application is available both as a NPM module and as a standalone service
 
 ## Notes
 
