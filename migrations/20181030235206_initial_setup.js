@@ -18,14 +18,20 @@ const createUsersTable = table => {
     table.integer('author_id').references('id').inTable('authors');
 };
 
+const createCategoriesTable = table => {
+    table.increments('id');
+    table.string('name');
+    table.string('slug');
+};
+
 const createArticlesTable = (table, knex) => {
     table.increments('id');
     table.integer('author').notNullable();
     table.string('title').notNullable();
     table.string('subtitle').notNullable();
     table.string('slug').notNullable().unique();
-    table.string('category').notNullable();
-    table.date('posted_on').notNullable().defaultTo(knex.fn.now());
+    table.integer('category').notNullable();
+    table.date('posted_on').defaultTo(knex.fn.now());
     table.boolean('hidden').defaultTo(false);
 };
 
@@ -37,7 +43,7 @@ const createArticleContentTable = table => {
 };
 
 const createRelatedArticlesTable = table => {
-    table.integer('article_id').notNullable().unique().references('id').inTable('articles');
+    table.integer('article_id').notNullable().references('id').inTable('articles');
     table.integer('related_article_id').notNullable().references('id').inTable('articles');
 };
 
@@ -45,6 +51,7 @@ module.exports.up = (knex, Promise) => {
     return Promise.all([
         knex.schema.createTable('users', table => createUsersTable(table)),
         knex.schema.createTable('authors', table => createAuthorsTable(table)),
+        knex.schema.createTable('categories', table => createCategoriesTable(table)),
         knex.schema.createTable('articles', table => createArticlesTable(table, knex)),
         knex.schema.createTable('article_content', table => createArticleContentTable(table)),
         knex.schema.createTable('related_articles', table => createRelatedArticlesTable(table)),
@@ -56,6 +63,7 @@ module.exports.down = (knex, Promise) => {
         knex.schema.dropTable('related_articles'),
         knex.schema.dropTable('article_content'),
         knex.schema.dropTable('articles'),
+        knex.schema.dropTable('categories'),
         knex.schema.dropTable('users'),
         knex.schema.dropTable('authors'),
     ]);

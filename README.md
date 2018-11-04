@@ -13,6 +13,7 @@ POST routes are protected
 * For testing add SQLite support
 * Fix Travis testing script, Postgres integration
 * Add authentication
+* Set all Knex stuff to ./db folder
 * Create documentation, API documentation using Swagger
 * Add performance testing script, maybe using https://k6.io/
 * Improve node_env checking
