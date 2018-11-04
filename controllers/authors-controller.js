@@ -1,7 +1,7 @@
-const { listAllAuthors } = require('./authors');
+const { listAuthors } = require('./authors');
 
 const list = async (req, res) => {
-    const authors = await listAllAuthors();
+    const authors = await listAuthors();
     res.json(authors);
 };
 

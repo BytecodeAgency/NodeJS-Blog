@@ -5,6 +5,8 @@ const rollbackMigrateAndFill = async () =>
         .rollback()
         .then(() => knex.migrate.latest().then(() => knex.seed.run()));
 
-const prepareDatabase = async () => Promise.resolve(rollbackMigrateAndFill());
+const prepareDatabase = done => {
+    rollbackMigrateAndFill().then(() => done());
+};
 
 module.exports = prepareDatabase;

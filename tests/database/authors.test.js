@@ -1,14 +1,14 @@
 // const knex = require('../../helpers/database');
 const databaseSetup = require('../config/database-setup');
 const {
-    listAllAuthors,
+    listAuthors,
     getAuthor,
     addAuthor,
-    modifyAutor,
+    modifyAuthor,
     deleteAuthor,
 } = require('../../controllers/authors');
 
-beforeEach(() => databaseSetup());
+beforeEach(done => databaseSetup(done));
 
 const newAuthor = {
     name: 'John Doe 2',
@@ -19,7 +19,7 @@ const newAuthor = {
 describe('Test if Authors CRUD operations are working correctly', () => {
     test('Listing all Authors should return rows', async () => {
         expect.assertions(1);
-        const authors = await listAllAuthors();
+        const authors = await listAuthors();
         expect(authors.length).toBeGreaterThan(0);
     });
 
@@ -34,10 +34,10 @@ describe('Test if Authors CRUD operations are working correctly', () => {
 
     test('Adding a new Author should add a single row', async () => {
         expect.assertions(1);
-        const authorsBefore = await listAllAuthors();
+        const authorsBefore = await listAuthors();
         const authorLengthBefore = authorsBefore.length;
         return addAuthor(newAuthor).then(async () => {
-            const authorsAfter = await listAllAuthors();
+            const authorsAfter = await listAuthors();
             const authorLengthAfter = authorsAfter.length;
             expect(authorLengthAfter).toBe(authorLengthBefore + 1);
         });
@@ -60,7 +60,7 @@ describe('Test if Authors CRUD operations are working correctly', () => {
         expect(originalAuthor.name).not.toBe(newAuthor.name);
         expect(originalAuthor.image_url).not.toBe(newAuthor.image_url);
         expect(originalAuthor.role).not.toBe(newAuthor.role);
-        const modifiedAuthor = await modifyAutor(1, newAuthor);
+        const modifiedAuthor = await modifyAuthor(1, newAuthor);
         expect(modifiedAuthor.id).toBeDefined();
         expect(typeof modifiedAuthor.id).toBe('number');
         expect(modifiedAuthor.name).toBe(newAuthor.name);
@@ -72,6 +72,6 @@ describe('Test if Authors CRUD operations are working correctly', () => {
         expect.assertions(2);
         return deleteAuthor(1)
             .then(data => expect(data.id).toBe(1))
-            .then(() => expect(getAuthor(1)).toBeUndefined());
+            .then(async () => expect(await getAuthor(1)).toBeUndefined());
     });
 });
