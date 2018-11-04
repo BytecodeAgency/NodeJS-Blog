@@ -27,9 +27,9 @@ describe('Test if Authors CRUD operations are working correctly', () => {
         expect.assertions(4);
         const author = await getAuthor(1);
         expect(author.id).toBe(1);
-        expect(author.name).toBeInstanceOf(String);
-        expect(author.image_url).toBeInstanceOf(String);
-        expect(author.role).toBeInstanceOf(String);
+        expect(typeof author.name).toBe('string');
+        expect(typeof author.image_url).toBe('string');
+        expect(typeof author.role).toBe('string');
     });
 
     test('Adding a new Author should add a single row', async () => {
@@ -47,7 +47,7 @@ describe('Test if Authors CRUD operations are working correctly', () => {
         expect.assertions(5);
         const addedAuthor = await addAuthor(newAuthor);
         expect(addedAuthor.id).toBeDefined();
-        expect(addedAuthor.id).toBeInstanceOf(Number);
+        expect(typeof addedAuthor.id).toBe('number');
         expect(addedAuthor.name).toBe(newAuthor.name);
         expect(addedAuthor.image_url).toBe(newAuthor.image_url);
         expect(addedAuthor.role).toBe(newAuthor.role);
@@ -62,7 +62,7 @@ describe('Test if Authors CRUD operations are working correctly', () => {
         expect(originalAuthor.role).not.toBe(newAuthor.role);
         const modifiedAuthor = await modifyAutor(1, newAuthor);
         expect(modifiedAuthor.id).toBeDefined();
-        expect(modifiedAuthor.id).toBeInstanceOf(Number);
+        expect(typeof modifiedAuthor.id).toBe('number');
         expect(modifiedAuthor.name).toBe(newAuthor.name);
         expect(modifiedAuthor.image_url).toBe(newAuthor.image_url);
         expect(modifiedAuthor.role).toBe(newAuthor.role);
