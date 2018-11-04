@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 module.exports = {
-    Status: require('./status'),
-    Authors: require('./authors'),
-    Posts: require('./posts'),
+    Status: require('./status-controller'),
+    Authors: require('./authors-controller'),
+    Posts: require('./posts-controller'),
 };
