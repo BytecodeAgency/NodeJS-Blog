@@ -47,5 +47,10 @@
     "response-time": "^2.3.2",
     "sqlite3": "^4.0.3",
     "supertest": "^3.3.0"
+  },
+  "env": {
+    "params": {
+      "env": "NODE_ENV=TEST"
+    }
   }
 }

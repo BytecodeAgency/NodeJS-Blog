@@ -1,4 +1,3 @@
-// const knex = require('../../helpers/database');
 const databaseSetup = require('../config/database-setup');
 const {
     listAuthors,
