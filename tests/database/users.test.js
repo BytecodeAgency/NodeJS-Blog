@@ -83,8 +83,8 @@ describe('Test if Users CRUD operations are working correctly', () => {
 
     test('Deleting an User should return undefined', async () => {
         expect.assertions(2);
-        return deleteUser(1)
-            .then(data => expect(data.id).toBe(undefined))
-            .then(async () => expect(await getUser(1)).toBeUndefined());
+        return deleteUser(2)
+            .then(data => expect(data.id).toBe(2))
+            .then(async () => expect(await getUser(2)).toBeUndefined());
     });
 });

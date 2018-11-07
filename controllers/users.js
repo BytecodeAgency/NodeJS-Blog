@@ -74,10 +74,13 @@ const modifyUser = async (id, user) => {
 };
 
 const deleteUser = async id =>
-    knex('users')
-        .returning(['id'])
-        .where({ id })
-        .delete();
+    new Promise(resolve =>
+        knex('users')
+            .returning(['id'])
+            .where({ id })
+            .delete()
+            .then(data => resolve(data[0])),
+        ); // eslint-disable-line
 
 module.exports = {
     listUsers,

@@ -40,8 +40,8 @@ const modifyAuthor = async (id, author) => {
     return modifiedAuthor[0];
 };
 
-const deleteAuthor = async id => {
-    return new Promise(resolve => {
+const deleteAuthor = async id =>
+    new Promise(resolve => {
         knex('users')
             .where({ author_id: id })
             .update({ author_id: null }) // foreign key
@@ -53,7 +53,6 @@ const deleteAuthor = async id => {
                     .then(data => resolve(data[0])),
             ); // eslint-disable-line
     });
-};
 
 module.exports = {
     listAuthors,
