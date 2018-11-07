@@ -27,9 +27,6 @@ const addAuthor = async author => {
 };
 
 const modifyAuthor = async (id, author) => {
-    if (typeof id !== 'number') {
-        throw new Error('ID must be numner');
-    }
     // eslint-disable-next-line camelcase
     const { name, image_url, role } = author;
     const newAuthorData = { name, image_url, role };
@@ -44,9 +41,6 @@ const modifyAuthor = async (id, author) => {
 };
 
 const deleteAuthor = async id => {
-    if (typeof id !== 'number') {
-        throw new Error('ID must be numner');
-    }
     return new Promise(resolve => {
         knex('users')
             .where({ author_id: id })
