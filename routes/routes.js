@@ -26,14 +26,14 @@ router.delete('/users:id', Users.remove);
 router.get('/categories', Categories.list);
 router.get('/categories/:id', Categories.show);
 router.post('/categories', Categories.create);
-router.put('/categories', Categories.update);
+router.put('/categories/:id', Categories.update);
 router.delete('/categories/:id', Categories.remove);
 
 // Posts
 router.get('/posts', Posts.list);
 router.get('/posts/:id', Posts.show);
 router.post('/posts', Posts.create);
-router.put('/posts', Posts.update);
+router.put('/posts/:id', Posts.update);
 router.delete('/posts/:id', Posts.remove);
 
 module.exports = router;
