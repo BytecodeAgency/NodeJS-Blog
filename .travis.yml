@@ -20,7 +20,7 @@ install:
   - yarn
 
 before_script:
-  - psql -c 'CREATE USER root WITH PASSWORD "root";' -U postgres
+  - psql -c "CREATE USER root WITH PASSWORD 'root';" -U postgres
   - psql -c 'CREATE DATABASE blog_test;' -U postgres
   - psql -c 'GRANT ALL PRIVILEGES ON DATABASE blog_test TO root;' -U postgres
 
