@@ -1,12 +1,10 @@
 # NodeJS Blog API
 
-# Routes
+Blog API developed by Bytecode Digital Agency as free (as in freedom) open source software. Built in NodeJS. Available as a standalone server, or as a NPM package
 
-All are /api/[route]
+# API routes
 
-All are GET by default
-
-POST routes are protected
+The API documentation can be generated using SwaggerUI. The contents can be found in `./swagger.yml`
 
 # Todo
 

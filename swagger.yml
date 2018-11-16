@@ -47,7 +47,7 @@ paths:
   /authors:
     get:
       tags:
-        - 'authors'
+        - 'Authors'
       summary: 'Finds all Authors'
       responses:
         200:
@@ -60,7 +60,7 @@ paths:
                   $ref: '#/components/schemas/Author'
     post:
       tags:
-        - 'authors'
+        - 'Authors'
       summary: 'Adds a new Author'
       requestBody:
         description: 'Author to be added. ID should not be sent, as it will be generated automatically'
@@ -85,7 +85,7 @@ paths:
   /authors/{id}:
     get:
       tags:
-        - 'authors'
+        - 'Authors'
       summary: 'Finds single Author'
       parameters:
         - name: id
@@ -104,7 +104,7 @@ paths:
                 $ref: '#/components/schemas/Author'
     put:
       tags:
-        - 'authors'
+        - 'Authors'
       summary: 'Modifies an author'
       parameters:
         - name: id
@@ -136,7 +136,7 @@ paths:
         - Bearer: []
     delete:
       tags:
-        - 'authors'
+        - 'Authors'
       summary: 'Deletes an author'
       parameters:
         - name: id
