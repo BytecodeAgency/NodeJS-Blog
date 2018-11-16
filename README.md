@@ -10,9 +10,10 @@ POST routes are protected
 
 # Todo
 
-* For testing add SQLite support
 * Fix Travis testing script, Postgres integration
 * Add authentication, password hashing -> also improve seed scripts
+    * Add auth routes to get JWT
+    * Using https://thejackalofjavascript.com/architecting-a-restful-node-js-app/
 * Set all Knex stuff to ./db folder
 * Create documentation, API documentation using Swagger
 * Add performance testing script, maybe using https://k6.io/

@@ -15,14 +15,14 @@ router.post('/authors', Authors.create);
 router.put('/authors:id', Authors.update);
 router.delete('/authors:id', Authors.remove);
 
-// Authors
+// Users
 router.get('/users', Users.list);
 router.get('/users/:id', Users.show);
 router.post('/users', Users.create);
 router.put('/users:id', Users.update);
 router.delete('/users:id', Users.remove);
 
-// Posts
+// Categories
 router.get('/categories', Categories.list);
 router.get('/categories/:id', Categories.show);
 router.post('/categories', Categories.create);

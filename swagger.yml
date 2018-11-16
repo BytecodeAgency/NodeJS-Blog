@@ -1,0 +1,583 @@
+openapi: 3.0.0
+
+info:
+  description: 'This is a Blog API built in NodeJS.  This project was initiated and maintained by [Bytecode Digital Agency](https://bytecode.nl).'
+  version: '1.0.0'
+  title: 'NodeJS Blog Api'
+  contact:
+    email: 'support@bytecode.nl'
+  license:
+    name: 'GNU General Public License (GPL) v3'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
+
+servers:
+  - url: 'localhost:5000'
+    description: 'Local server using default port'
+
+tags:
+  - name: 'Status'
+    description: 'Get a status code from the application (for health check purposes)'
+  - name: 'Authors'
+    description: 'Access to the Authors'
+  - name: 'Users'
+    description: 'Access to the Users'
+  - name: 'Categories'
+    description: 'Access to the Categories'
+  - name: 'Posts'
+    description: 'Access to the Posts'
+
+paths:
+  /:
+    get:
+      tags:
+        - 'Status'
+      summary: 'Returns application code'
+      responses:
+        200:
+          description: 'Application OK'
+  /status:
+    get:
+      tags:
+        - 'Status'
+      summary: 'Returns application code'
+      responses:
+        200:
+          description: 'Application OK'
+
+  /authors:
+    get:
+      tags:
+        - 'authors'
+      summary: 'Finds all Authors'
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Author'
+    post:
+      tags:
+        - 'authors'
+      summary: 'Adds a new Author'
+      requestBody:
+        description: 'Author to be added. ID should not be sent, as it will be generated automatically'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        201:
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+  /authors/{id}:
+    get:
+      tags:
+        - 'authors'
+      summary: 'Finds single Author'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+    put:
+      tags:
+        - 'authors'
+      summary: 'Modifies an author'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        description: 'New Author information'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        201:
+          description: 'Saved modified data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+    delete:
+      tags:
+        - 'authors'
+      summary: 'Deletes an author'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: 'Deleted'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+
+  /users:
+    get:
+      tags:
+        - 'Users'
+      summary: 'Finds all Users'
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - 'Users'
+      summary: 'Adds a new User'
+      requestBody:
+        description: 'User to be added. ID should not be sent, as it will be generated automatically'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+  /users/{id}:
+    get:
+      tags:
+        - 'Users'
+      summary: 'Finds single User'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      tags:
+        - 'Users'
+      summary: 'Modifies a User'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        description: 'New User information'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: 'Saved modified data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+    delete:
+      tags:
+        - 'Users'
+      summary: 'Deletes a User'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: 'Deleted'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+
+  /categories:
+    get:
+      tags:
+        - 'Categories'
+      summary: 'Finds all Categories'
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Category'
+    post:
+      tags:
+        - 'Categories'
+      summary: 'Adds a new User'
+      requestBody:
+        description: 'Category to be added'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        201:
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+  /categories/{id}:
+    get:
+      tags:
+        - 'Categories'
+      summary: 'Finds single Category'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+    put:
+      tags:
+        - 'Categories'
+      summary: 'Modifies a Category'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        description: 'New Category information'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        201:
+          description: 'Saved modified data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+    delete:
+      tags:
+        - 'Categories'
+      summary: 'Deletes a Category'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: 'Deleted'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+
+  /posts:
+    get:
+      tags:
+        - 'Posts'
+      summary: 'Finds all Posts'
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Article'
+    post:
+      tags:
+        - 'Posts'
+      summary: 'Adds a new Post'
+      requestBody:
+        description: 'Post to be added'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Article'
+      responses:
+        201:
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+  /posts/{id}:
+    get:
+      tags:
+        - 'Posts'
+      summary: 'Finds single Post'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+    put:
+      tags:
+        - 'Posts'
+      summary: 'Modifies a Post'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        description: 'New Post information'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Article'
+      responses:
+        201:
+          description: 'Saved modified data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+    delete:
+      tags:
+        - 'Posts'
+      summary: 'Deletes a Post'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'Item ID'
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: 'Deleted'
+        400:
+          description: 'Invalid data'
+        401:
+          description: 'Authorization details are incorrect'
+      security:
+        - Bearer: []
+
+components:
+  securitySchemes:
+    Bearer:
+      type: 'http'
+      scheme: 'bearer'
+  schemas:
+    Author:
+      type: 'object'
+      properties:
+        id:
+          type: 'integer'
+          description: 'Auto generated, cannot be set manually'
+        name:
+          type: 'string'
+        image_url:
+          type: 'string'
+        role:
+          type: 'string'
+    User:
+      type: 'object'
+      properties:
+        id:
+          type: 'integer'
+          description: 'Auto generated, cannot be set manually'
+        username:
+          type: 'string'
+        email:
+          type: 'string'
+        first_name:
+          type: 'string'
+        last_name:
+          type: 'string'
+        password:
+          type: 'string'
+          description: 'Will not show in server responses. Only used in POST.'
+        author_id:
+          type: 'integer'
+          description: 'References author ID, can be null'
+    Category:
+      type: 'object'
+      properties:
+        id:
+          type: 'integer'
+          description: 'Auto generated, cannot be set manually'
+        name:
+          type: 'string'
+        slug:
+          type: 'string'
+    Article:
+      type: 'object'
+      properties:
+        id:
+          type: 'integer'
+          description: 'Auto generated, cannot be set manually'
+        author:
+          $ref: '#/components/schemas/Author'
+        title:
+          type: 'string'
+        subtitle:
+          type: 'string'
+        slug:
+          type: 'string'
+        category:
+          $ref: '#/components/schemas/Category'
+        posted_on:
+          type: 'string'
+        hidden:
+          type: 'boolean'
+        summary:
+          type: 'string'
+        image_url:
+          type: 'string'
+        markdown_content:
+          type: 'string'
+        related_articles:
+          type: 'array'
+          items:
+            $ref: '#/components/schemas/RelatedArticle'
+    RelatedArticle:
+      type: 'object'
+      properties:
+        id:
+          type: 'boolean'
+          description: 'The only field that should be filled on POST request related to Related Articles'
+        image_url:
+          type: 'string'
+        summary:
+          type: 'string'
+
