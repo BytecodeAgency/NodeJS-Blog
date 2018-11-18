@@ -85,16 +85,18 @@ For development, the following commands are available:
 ### Folder structure
 
 ```md
-├── controllers         Controller logic for the module based API
+.
+├── controllers         Controllers for the module based API
 ├── database            All database related files
 │   ├── migrations
 │   └── seeds
 ├── helpers             Helper files, for example: logger, database instance
-├── server              Server configuration
+├── server
 │   ├── controllers
 │   ├── middleware
 │   │   └── modules
 │   └── routes
+├── src                 Source directory for the API exposed by the module
 └── tests               All tests written
     ├── config
     └── database
