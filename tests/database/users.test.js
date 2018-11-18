@@ -1,3 +1,4 @@
+const knex = require('../../helpers/database');
 const databaseSetup = require('../config/database-setup');
 const {
     listUsers,
@@ -8,6 +9,7 @@ const {
 } = require('../../controllers/users');
 
 beforeEach(done => databaseSetup(done));
+afterAll(() => knex.destroy());
 
 const newUser = {
     username: 'anewuser',

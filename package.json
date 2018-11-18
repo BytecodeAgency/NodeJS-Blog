@@ -28,9 +28,9 @@
     "dev": "nodemon",
     "start": "node server.js",
     "lint": "eslint --ext .jsx,.js,.ts .",
-    "test": "NODE_ENV=TEST jest -i --forceExit",
+    "test": "NODE_ENV=TEST jest -i",
     "test:watch": "NODE_ENV=TEST jest -i --watch",
-    "coverage": "NODE_ENV=TEST jest -i --coverage --forceExit",
+    "coverage": "NODE_ENV=TEST jest -i --coverage",
     "migrate": "knex migrate:latest",
     "reinstall": "rm -rf node_modules && yarn"
   },

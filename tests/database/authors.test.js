@@ -1,3 +1,4 @@
+const knex = require('../../helpers/database');
 const databaseSetup = require('../config/database-setup');
 const {
     listAuthors,
@@ -8,6 +9,7 @@ const {
 } = require('../../controllers/authors');
 
 beforeEach(done => databaseSetup(done));
+afterAll(() => knex.destroy());
 
 const newAuthor = {
     name: 'John Doe 2',

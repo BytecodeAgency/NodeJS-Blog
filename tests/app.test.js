@@ -2,6 +2,7 @@ const knex = require('../helpers/database');
 const databaseSetup = require('./config/database-setup');
 
 beforeEach(done => databaseSetup(done));
+afterAll(() => knex.destroy());
 
 describe('Test if test database is configured correctly', () => {
     test('Users table should be filled', async () => {
