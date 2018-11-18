@@ -1,4 +1,4 @@
-const knex = require('../helpers/database');
+const { knex } = require('../helpers');
 
 const listAuthors = async () => {
     const authors = await knex.select('*').from('authors');

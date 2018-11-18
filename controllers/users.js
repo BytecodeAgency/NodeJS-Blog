@@ -1,4 +1,4 @@
-const knex = require('../helpers/database');
+const { knex } = require('../helpers');
 
 const listUsers = async () => {
     const Users = await knex.select('*').from('users');

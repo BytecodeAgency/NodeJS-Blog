@@ -1,4 +1,4 @@
-const knex = require('../helpers/database');
+const { knex } = require('../helpers');
 const { useTestDatabase } = require('./config');
 
 useTestDatabase();
