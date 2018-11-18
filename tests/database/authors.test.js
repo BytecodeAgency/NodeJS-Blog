@@ -1,5 +1,4 @@
-const knex = require('../../helpers/database');
-const databaseSetup = require('../config/database-setup');
+const { useTestDatabase } = require('../config');
 const {
     listAuthors,
     getAuthor,
@@ -8,8 +7,7 @@ const {
     deleteAuthor,
 } = require('../../controllers/authors');
 
-beforeEach(done => databaseSetup(done));
-afterAll(() => knex.destroy());
+useTestDatabase();
 
 const newAuthor = {
     name: 'John Doe 2',

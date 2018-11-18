@@ -1,5 +1,4 @@
-# NodeJS Blog API
-[![Project maintainers](https://img.shields.io/badge/Project%20maintained%20by-Bytecode%20Digital%20Agency-brightgreen.svg)](https://bytecode.nl)
+# NodeJS Blog API [![Project maintainers](https://img.shields.io/badge/Project%20maintained%20by-Bytecode%20Digital%20Agency-brightgreen.svg)](https://bytecode.nl)
 
 [![Build Status](https://travis-ci.org/lucianonooijen/NodeJS-Blog.svg?branch=master)](https://travis-ci.org/lucianonooijen/NodeJS-Blog)
 [![codecov](https://codecov.io/gh/lucianonooijen/NodeJS-Blog/branch/master/graph/badge.svg)](https://codecov.io/gh/lucianonooijen/NodeJS-Blog)
@@ -15,12 +14,10 @@ The API documentation can be generated using SwaggerUI. The contents can be foun
 
 # Todo
 
-* Fix Travis testing script, Postgres integration
 * Add authentication, password hashing -> also improve seed scripts
     * Add auth routes to get JWT
     * Using https://thejackalofjavascript.com/architecting-a-restful-node-js-app/
 * Set all Knex stuff to ./db folder
-* Create documentation, API documentation using Swagger
 * Add performance testing script, maybe using https://k6.io/
 * Improve node_env checking
 * Later on, maybe add CLI for creating admin users using https://github.com/enquirer/enquirer

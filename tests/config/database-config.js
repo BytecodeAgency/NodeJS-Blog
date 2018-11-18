@@ -9,4 +9,9 @@ const prepareDatabase = done => {
     rollbackMigrateAndFill().then(() => done());
 };
 
-module.exports = prepareDatabase;
+const useTestDatabase = () => {
+    beforeEach(done => prepareDatabase(done));
+    afterAll(() => knex.destroy());
+};
+
+module.exports = useTestDatabase;
