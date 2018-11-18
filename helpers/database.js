@@ -5,10 +5,8 @@ const knexfileNormal = require('../knexfile');
 const knexfileTest = require('../knexfile-test');
 
 const getKnexfile = NODE_ENV => {
-    if (NODE_ENV === 'TEST') {
-        return knexfileTest;
-    }
-    return knexfileNormal;
+    const knexFile = NODE_ENV === 'TEST' ? knexfileTest : knexfileNormal;
+    return knexFile;
 };
 
 const db = (NODE_ENV = process.env.NODE_ENV) => {
