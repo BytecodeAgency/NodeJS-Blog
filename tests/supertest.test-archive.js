@@ -2,7 +2,7 @@
 // Until this has been resolved, this file will be archived for later use.
 
 const request = require('supertest');
-const app = require('../app');
+const app = require('../server/app');
 
 describe('Test the status paths', () => {
     test('The GET / route should give status code 200', async () => {

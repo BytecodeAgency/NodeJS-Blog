@@ -5,7 +5,7 @@ if (ENABLE_SQREEN === 'true' && NODE_ENV !== 'TEST') require('sqreen');
 /* eslint-enable */
 
 const app = require('./app');
-const logger = require('./helpers/logger');
+const logger = require('../helpers/logger');
 
 app.listen(PORT, () => {
     logger.info(`Server listening on port ${PORT}`); // eslint-disable-line

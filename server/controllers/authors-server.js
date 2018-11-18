@@ -1,4 +1,4 @@
-const { listAuthors } = require('./authors');
+const { listAuthors } = require('../../controllers/authors');
 
 const list = async (req, res) => {
     const authors = await listAuthors();

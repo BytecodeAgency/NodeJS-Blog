@@ -26,7 +26,11 @@ module.exports = {
     },
     migrations: {
         tableName: 'knex_migrations',
+        directory: './database/migrations',
     },
     debug,
     asyncStackTraces: debug,
+    seeds: {
+        directory: './database/seeds',
+    },
 };

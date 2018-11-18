@@ -1,3 +1,5 @@
+// TODO: Improve file: https://knexjs.org/#knexfile, move file to ./database
+
 require('dotenv').config();
 
 // eslint-disable-next-line
@@ -26,7 +28,11 @@ module.exports = {
     },
     migrations: {
         tableName: 'knex_migrations',
+        directory: './database/migrations',
     },
     debug,
     asyncStackTraces: debug,
+    seeds: {
+        directory: './database/seeds',
+    },
 };

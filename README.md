@@ -44,10 +44,12 @@ to start using the package, create a new instance of the NodeBlog class
 
 ```js
 const nodeBlogConfig = {
+    client: 'YOUR_DB_CLIENT' // for more info, see https://knexjs.org/
     host: 'YOUR_DB_HOST'
     database: 'YOUR_DB_NAME'
     user: 'YOUR_DB_USER'
     pass: 'YOUR_DB_PASS'
+    debug: true || false
 };
 const nodeBlog = new NodeBlog(nodeBlogConfig);
 ```
@@ -80,8 +82,27 @@ For development, the following commands are available:
 | `yarn run migrate` | Migrates your database (normal one, not test database) to the most recent migration, seeds will not be ran |
 | `yarn run reinstall` | Deletes the `node_modules/` folder and reinstalls everything, if you get some stange dependency errors, run this command |
 
+### Folder structure
+
+```md
+├── controllers         Controller logic for the module based API
+├── database            All database related files
+│   ├── migrations
+│   └── seeds
+├── helpers             Helper files, for example: logger, database instance
+├── server              Server configuration
+│   ├── controllers
+│   ├── middleware
+│   │   └── modules
+│   └── routes
+└── tests               All tests written
+    ├── config
+    └── database
+```
+
 # Todo
 
+* Add Yarn seed command
 * Add authentication, password hashing -> also improve seed scripts
     * Add auth routes to get JWT
     * Using https://thejackalofjavascript.com/architecting-a-restful-node-js-app/
@@ -92,6 +113,7 @@ For development, the following commands are available:
 * Make sure the application is available both as a NPM module and as a standalone service
 * Integrate https://github.com/semantic-release/semantic-release
 * Split up standalone and module
+* Add XML feed
 
 ## Notes
 

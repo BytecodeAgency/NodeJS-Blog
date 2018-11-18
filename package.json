@@ -25,8 +25,8 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "dev": "nodemon",
-    "start": "node server.js",
+    "dev": "nodemon server/server.js",
+    "start": "node server/server.js",
     "lint": "eslint --ext .jsx,.js,.ts .",
     "test": "NODE_ENV=TEST jest -i",
     "test:watch": "NODE_ENV=TEST jest -i --watch",
