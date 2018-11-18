@@ -25,16 +25,14 @@ const getConfig = wallaby => { // eslint-disable-line
 
     return {
         files: [
-            'server.js',
-            'app.js',
+            'index.js',
             'knexfile.js',
             'knexfile-test.js',
             'controllers/**/*.js',
+            'database/**/*.js',
             'helpers/**/*.js',
-            'middleware/**/*.js',
-            'routes/**/*.js',
-            'migrations/**/*.js',
-            'seeds/**/*.js',
+            'server/**/*.js',
+            'src/**/*.js',
             'tests/config/**/*.js',
         ],
         tests: ['tests/**/*.test.js', 'tests/**/*.spec.js'],
