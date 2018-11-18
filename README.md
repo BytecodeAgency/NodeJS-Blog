@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/lucianonooijen/NodeJS-Blog.svg?branch=master)](https://travis-ci.org/lucianonooijen/NodeJS-Blog)
 [![codecov](https://codecov.io/gh/lucianonooijen/NodeJS-Blog/branch/master/graph/badge.svg)](https://codecov.io/gh/lucianonooijen/NodeJS-Blog)
-[![Version Badge](http://versionbadg.es//lucianonooijen/https://github.com/lucianonooijen/NodeJS-Blog.svg)](https://npmjs.org/package/nodejs-blog)
+[![npm version](https://badge.fury.io/js/nodejs-blog.svg)](https://badge.fury.io/js/nodejs-blog)
 [![NodeJS Version](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
