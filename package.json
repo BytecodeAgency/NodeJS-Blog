@@ -28,9 +28,9 @@
     "dev": "nodemon server/server.js",
     "start": "node server/server.js",
     "lint": "eslint --ext .jsx,.js,.ts .",
-    "test": "NODE_ENV=TEST jest -i",
-    "test:watch": "NODE_ENV=TEST jest -i --watch",
-    "coverage": "NODE_ENV=TEST jest -i --coverage",
+    "test": "NODE_ENV=test jest -i",
+    "test:watch": "NODE_ENV=test jest -i --watch",
+    "coverage": "NODE_ENV=test jest -i --coverage",
     "migrate": "knex migrate:latest",
     "reinstall": "rm -rf node_modules && yarn"
   },
@@ -68,7 +68,7 @@
   },
   "env": {
     "params": {
-      "env": "NODE_ENV=TEST"
+      "env": "NODE_ENV=test"
     }
   }
 }

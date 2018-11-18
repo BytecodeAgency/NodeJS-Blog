@@ -19,7 +19,7 @@ const setEnv = envVars => {
 };
 
 const getConfig = wallaby => { // eslint-disable-line
-    process.env.NODE_ENV = 'TEST';
+    process.env.NODE_ENV = 'test';
     const env = getEnv();
     setEnv(env);
 

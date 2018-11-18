@@ -109,7 +109,6 @@ For development, the following commands are available:
     * Add auth routes to get JWT
     * Using https://thejackalofjavascript.com/architecting-a-restful-node-js-app/
 * Add performance testing script, maybe using https://k6.io/
-* Improve node_env checking
 * Later on, maybe add CLI for creating admin users using https://github.com/enquirer/enquirer
 * Later on, add a CLI/application for loading .md files into the database as posts
 * Make sure the application is available both as a NPM module and as a standalone service
@@ -119,4 +118,4 @@ For development, the following commands are available:
 
 ## Notes
 
-* Node ENVs: DEVELOPMENT, PRODUCTION, TEST
+* Node ENVs: development, production, test
