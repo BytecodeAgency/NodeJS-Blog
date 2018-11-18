@@ -44,12 +44,12 @@ to start using the package, create a new instance of the NodeBlog class
 
 ```js
 const nodeBlogConfig = {
-    client: 'YOUR_DB_CLIENT' // for more info, see https://knexjs.org/
-    host: 'YOUR_DB_HOST'
-    database: 'YOUR_DB_NAME'
-    user: 'YOUR_DB_USER'
-    pass: 'YOUR_DB_PASS'
-    debug: true || false
+    client: 'YOUR_DB_CLIENT', // for more info, see https://knexjs.org/
+    host: 'YOUR_DB_HOST',
+    database: 'YOUR_DB_NAME',
+    user: 'YOUR_DB_USER',
+    pass: 'YOUR_DB_PASS',
+    debug: true || false,
 };
 const nodeBlog = new NodeBlog(nodeBlogConfig);
 ```
