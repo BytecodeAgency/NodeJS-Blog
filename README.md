@@ -8,22 +8,90 @@
 
 Blog API developed by Bytecode Digital Agency as free (as in freedom) open source software. Built in NodeJS. Available as a standalone server, or as a NPM package
 
-# API routes
+## Installation
 
-The API documentation can be generated using SwaggerUI. The contents can be found in `./swagger.yml`
+To install the module, run
+
+```sh
+yarn add nodejs-api
+```
+
+or
+
+```sh
+npm install nodejs-api
+```
+
+For contributing to the development, fork the [GitHub repository](https://github.com/lucianonooijen/NodeJS-Blog).
+
+## Configuration
+
+*This part is not implemented in the code yet.*
+
+To use the NodeJS Blog module, first, import the package
+
+```js
+const NodeBlog = require('nodejs-blog');
+```
+
+or using ES6 modules
+
+```js
+import NodeBlog from 'nodejs-blog';
+```
+
+to start using the package, create a new instance of the NodeBlog class
+
+```js
+const nodeBlogConfig = {
+    host: 'YOUR_DB_HOST'
+    database: 'YOUR_DB_NAME'
+    user: 'YOUR_DB_USER'
+    pass: 'YOUR_DB_PASS'
+};
+const nodeBlog = new NodeBlog(nodeBlogConfig);
+```
+
+We recommend creating a single file that will create the NodeBlog instance, and `export` this instance, and `import` in all other files where you want to use NodeJS Blog.
+
+For security reasons we recommend using environment variables for loading the configuration. This is also in compliance with the [12 factor app Config guidelines](https://12factor.net/config)
+
+Note: NodeJS blog was made to be used with PostgreSQL, but it should(/could) also be compatible with other databases, as it uses KnexJS under the hood.
+
+## Running the API as a standalone service
+
+To run NodeJS Blog as a standalone service, run `cp .env.example .env` to create the `.env` file.
+
+Set your database details and preferences in the `.env` file and run `yarn run start`.
+
+The API documentation can be generated using SwaggerUI. The contents can be found in `./swagger.yml`.
+
+## Development
+
+For development, the following commands are available:
+
+| Command | Functionality |
+| - | - |
+| `yarn run dev` | Runs a `nodemon` server for the `server/server.js` file, and exposing the standalone service to your `localhost` |
+| `yarn run lint` | Runs ESLint, for PRs this should always pass |
+| `yarn run test` | Runs Jest once, for PRs this should always pass. Your database must be available as it is used to run tests on (beware: all existing data will be wiped, we recommend using a separate test-database, this can be set in the `.env` file) |
+| `yarn run test:watch` | Same as `yarn run test`, but it Jest watches for changes |
+| `yarn run coverage` | Creates coverage report, for this the test database should also be available |
+| `yarn run migrate` | Migrates your database (normal one, not test database) to the most recent migration, seeds will not be ran |
+| `yarn run reinstall` | Deletes the `node_modules/` folder and reinstalls everything, if you get some stange dependency errors, run this command |
 
 # Todo
 
 * Add authentication, password hashing -> also improve seed scripts
     * Add auth routes to get JWT
     * Using https://thejackalofjavascript.com/architecting-a-restful-node-js-app/
-* Set all Knex stuff to ./db folder
 * Add performance testing script, maybe using https://k6.io/
 * Improve node_env checking
 * Later on, maybe add CLI for creating admin users using https://github.com/enquirer/enquirer
 * Later on, add a CLI/application for loading .md files into the database as posts
 * Make sure the application is available both as a NPM module and as a standalone service
 * Integrate https://github.com/semantic-release/semantic-release
+* Split up standalone and module
 
 ## Notes
 
