@@ -2,7 +2,9 @@
 [![Project maintainers](https://img.shields.io/badge/Project%20maintained%20by-Bytecode%20Digital%20Agency-brightgreen.svg)](https://bytecode.nl)
 
 [![Build Status](https://travis-ci.org/lucianonooijen/NodeJS-Blog.svg?branch=master)](https://travis-ci.org/lucianonooijen/NodeJS-Blog)
+[![codecov](https://codecov.io/gh/lucianonooijen/NodeJS-Blog/branch/master/graph/badge.svg)](https://codecov.io/gh/lucianonooijen/NodeJS-Blog)
 [![Version Badge](http://versionbadg.es//lucianonooijen/https://github.com/lucianonooijen/NodeJS-Blog.svg)](https://npmjs.org/package/nodejs-blog)
+[![NodeJS Version](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
 Blog API developed by Bytecode Digital Agency as free (as in freedom) open source software. Built in NodeJS. Available as a standalone server, or as a NPM package
@@ -24,6 +26,7 @@ The API documentation can be generated using SwaggerUI. The contents can be foun
 * Later on, maybe add CLI for creating admin users using https://github.com/enquirer/enquirer
 * Later on, add a CLI/application for loading .md files into the database as posts
 * Make sure the application is available both as a NPM module and as a standalone service
+* Integrate https://github.com/semantic-release/semantic-release
 
 ## Notes
 
