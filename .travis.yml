@@ -26,6 +26,7 @@ before_script:
   - psql -c 'GRANT ALL PRIVILEGES ON DATABASE blog_test TO root;' -U postgres
 
 script:
+  - yarn run lint
   - yarn run test
   - yarn run coverage
   - codecov
