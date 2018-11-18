@@ -1,11 +1,29 @@
 {
   "name": "nodejs-blog",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A blog API built in NodeJS that can be used as a standalone application, or included in a NodeJS application",
   "main": "server.js",
-  "author": "Luciano Nooijen <luciano@bytecode.nl>",
-  "license": "GPL-3.0",
+  "author": "Luciano Nooijen <luciano@bytecode.nl> (https://bytecode.nl)",
+  "license": "GPL-3.0-only",
   "private": false,
+  "homepage": "https://github.com/lucianonooijen/NodeJS-Blog",
+  "bugs": {
+    "url": "https://github.com/lucianonooijen/NodeJS-Blog/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucianonooijen/NodeJS-Blog"
+  },
+  "keywords": [
+    "blog",
+    "bytecode",
+    "node-blog",
+    "nodejs-blog",
+    "api"
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "dev": "nodemon",
     "start": "node server.js",
