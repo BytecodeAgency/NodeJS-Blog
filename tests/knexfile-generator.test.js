@@ -79,6 +79,7 @@ describe('Knexfile generator', () => {
         expect(developmentDefaults).not.toEqual(testDefaults);
         expect(developmentDefaults).toEqual(productionDefaults);
         expect(developmentDefaults.client).toBe(DB_CLIENT);
+        expect(testDefaults.client).toBe(DB_CLIENT_TEST);
         expect(developmentDefaults.host).toBe(DB_HOST);
         expect(developmentDefaults.database).toBe(DB_NAME);
         expect(developmentDefaults.user).toBe(DB_USER);

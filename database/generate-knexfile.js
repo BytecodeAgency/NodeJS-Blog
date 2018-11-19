@@ -61,12 +61,12 @@ const generateKnexConfig = (nodeBlogConfig = {}) => {
         },
         migrations: {
             tableName: 'knex_migrations',
-            directory: './migrations',
+            directory: './database/migrations',
         },
         debug: getConfigEntry('debug', debug),
         asyncStackTraces: getConfigEntry('debug', debug),
         seeds: {
-            directory: './seeds',
+            directory: './database/seeds',
         },
     };
 

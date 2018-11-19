@@ -1,19 +1,9 @@
 require('dotenv').config();
+
 const getKnexInstance = require('knex');
+const generateKnexfile = require('../database/generate-knexfile');
 
-const knexfileNormal = require('../knexfile');
-const knexfileTest = require('../knexfile-test');
+const knexfile = generateKnexfile();
+const knex = getKnexInstance(knexfile);
 
-const getKnexfile = NODE_ENV => {
-    const knexFile = NODE_ENV === 'test' ? knexfileTest : knexfileNormal;
-    return knexFile;
-};
-
-const db = (NODE_ENV = process.env.NODE_ENV) => {
-    const knexfile = getKnexfile(NODE_ENV);
-    const knex = getKnexInstance(knexfile);
-    return knex;
-};
-
-const knex = db();
 module.exports = knex;

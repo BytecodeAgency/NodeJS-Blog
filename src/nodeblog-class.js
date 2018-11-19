@@ -1,7 +1,7 @@
 // TODO: Make this work and stuff
 
 const getKnexInstance = require('knex');
-const { generateKnexConfig } = require('../helpers');
+const { generateKnexfile } = require('../database');
 
 class NodeBlog {
     constructor(client, host, database, user, password, debug) {
@@ -12,7 +12,7 @@ class NodeBlog {
         this.password = password;
         this.debug = debug;
         this.knexConfig = { client, host, database, user, password, debug }; // eslint-disable-line
-        this.knex = getKnexInstance(generateKnexConfig);
+        this.knex = getKnexInstance(generateKnexfile);
         this.knex.migrate.latest(); // TODO: Clean up
     }
 }
