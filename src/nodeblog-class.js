@@ -1,7 +1,7 @@
 // TODO: Make this work and stuff
 
 const getKnexInstance = require('knex');
-const { generateKnexfile } = require('../database');
+const { generateKnexfile } = require('../database/generate-knexfile');
 
 class NodeBlog {
     constructor(client, host, database, user, password, debug) {
