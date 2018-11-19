@@ -6,6 +6,9 @@
 [![NodeJS Version](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
+**NOTE: THIS PACKAGE IS STILL IN DEVELOPMENT! RELEASE OF v1.0.0 WILL BE AROUND DECEMBER 1st, 2018.**
+
+
 Blog API developed by Bytecode Digital Agency as free (as in freedom) open source software. Built in NodeJS. Available as a standalone server, or as a NPM package
 
 ## Installation
