@@ -105,20 +105,12 @@ For development, the following commands are available:
     └── database
 ```
 
-# Todo
+### Node Environments
 
-* Add Yarn seed command
-* Add authentication, password hashing -> also improve seed scripts
-    * Add auth routes to get JWT
-    * Using https://thejackalofjavascript.com/architecting-a-restful-node-js-app/
-* Add performance testing script, maybe using https://k6.io/
-* Later on, maybe add CLI for creating admin users using https://github.com/enquirer/enquirer
-* Later on, add a CLI/application for loading .md files into the database as posts
-* Make sure the application is available both as a NPM module and as a standalone service
-* Integrate https://github.com/semantic-release/semantic-release
-* Split up standalone and module
-* Add XML feed
+The following NodeJS Environments are integrated:
 
-## Notes
-
-* Node ENVs: development, production, test
+| Env | Effect |
+| --- | ------ |
+| development | Will add development headers, and improve logging experience |
+| test | Will use test database, should only be used for automatic testing |
+| production | Production mode |
