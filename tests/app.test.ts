@@ -1,5 +1,5 @@
+import { useTestDatabase } from './config/index';
 const { knex } = require('../helpers');
-const { useTestDatabase } = require('./config');
 
 useTestDatabase();
 
