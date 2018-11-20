@@ -21,6 +21,7 @@ const setEnv = envVars => {
 const env = getEnv();
 setEnv(env);
 
+/* eslint-disable prettier/prettier */
 const useEnvVars = () => {
     beforeAll(() =>
         new Promise(resolve => {
