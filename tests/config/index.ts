@@ -1,5 +1,5 @@
-import useTestDatabase from './database-config';
-import useEnvVars from './load-env-file';
+import useTestDatabase from './use-test-database';
+import useEnvVars from './use-env-vars';
 
 export {
     useTestDatabase,
