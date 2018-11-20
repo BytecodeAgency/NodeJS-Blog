@@ -25,7 +25,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "dev": "ts-node server/server.ts",
+    "dev": "nodemon",
     "start": "ts-node server/server.ts",
     "build": "tsc",
     "lint": "yarn run lint:js && yarn run lint:ts",
