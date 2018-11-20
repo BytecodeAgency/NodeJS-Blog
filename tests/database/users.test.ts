@@ -1,4 +1,4 @@
-const { useTestDatabase } = require('../config');
+import useTestDatabase from '../config/database-config';
 const {
     listUsers,
     getUser,
