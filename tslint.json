@@ -1,0 +1,14 @@
+{
+    "extends": [
+        "tslint-config-airbnb"
+    ],
+    "rules": {
+        "no-console": [true, "log", "error"],
+        "no-empty": true,
+        "no-invalid-this": true,
+        "indent": [true, "spaces", 4],
+        "prefer-object-spread": true,
+        "ter-indent": [true, 4],
+        "triple-equals": true
+    }
+}

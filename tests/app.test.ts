@@ -1,4 +1,4 @@
-import useTestDatabase from './config/database-config';
+import { useTestDatabase } from './config/index';
 const { knex } = require('../helpers');
 
 useTestDatabase();

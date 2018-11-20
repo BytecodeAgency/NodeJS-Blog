@@ -85,6 +85,7 @@ For development, the following commands are available:
 | `yarn run coverage` | Creates coverage report, for this the test database should also be available |
 | `yarn run migrate` | Migrates your database (normal one, not test database) to the most recent migration, seeds will not be ran |
 | `yarn run reinstall` | Deletes the `node_modules/` folder and reinstalls everything, if you get some stange dependency errors, run this command |
+| `yarn run clean` | Deletes folders `build/`, `dist/` and `coverage/` |
 
 ### Folder structure
 
