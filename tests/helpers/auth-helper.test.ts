@@ -1,8 +1,13 @@
+import { useEnvVars } from '../config/index';
+
 const { authHelper } = require('../../helpers');
 
 const testPassword = 'the_test_password';
 const getPasswordHash = async () =>
     authHelper.generatePasswordHash(testPassword);
+
+useEnvVars();
+
 describe('Authentication helper', () => {
     test('generatePasswordHash should not return the password', async () => {
         expect.assertions(1);
@@ -22,4 +27,8 @@ describe('Authentication helper', () => {
         const passwordCheck = await authHelper.checkPasswordHash(testPassword, testPasswordHash);
         expect(passwordCheck).toBe(true);
     });
+
+    // test('generateJWT should return a string', () => {
+    //     const authToken = authHelper.generateAuthToken()
+    // });
 });

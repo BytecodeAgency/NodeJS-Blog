@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt');
 
-const saltRounds = process.env.SALT_ROUNDS || 10;
+const { SALT_ROUNDS, JWT_SECRET, JWT_EXPIRES_IN } = process.env;
+
+const decimalRadix = 10;
+const saltRounds = parseInt(SALT_ROUNDS, decimalRadix);
 
 const generatePasswordHash = async plainTextPassword => {
     const hashedPassword = await new Promise((resolve, reject) =>
@@ -22,15 +25,18 @@ const checkPasswordHash = async (plainTextPassword, hashedPassword) => {
     return false;
 };
 
-const generateAuthToken = () => {};
+const generateJWT = () => {
+    return null;
+};
 
-const checkAuthToken = () => {};
+// TODO: Integrate Typescript, generate enum
+const checkJWT = () => {};
 
 const authHelper = {
     generatePasswordHash,
     checkPasswordHash,
-    generateAuthToken,
-    checkAuthToken,
+    generateJWT,
+    checkJWT,
 };
 
 module.exports = authHelper;
