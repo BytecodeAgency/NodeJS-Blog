@@ -39,6 +39,7 @@
     "clean": "rm -rf dist build coverage"
   },
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "dotenv": "^6.1.0",

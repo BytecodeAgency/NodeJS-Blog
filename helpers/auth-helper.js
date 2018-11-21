@@ -1,6 +1,26 @@
-const generatePasswordHash = () => {};
+const bcrypt = require('bcrypt');
 
-const checkPasswordHash = () => {};
+const saltRounds = process.env.SALT_ROUNDS || 10;
+
+const generatePasswordHash = async plainTextPassword => {
+    const hashedPassword = await new Promise((resolve, reject) =>
+        bcrypt.hash(plainTextPassword, saltRounds, (err, hash) => {
+            if (err) {
+                reject(hash);
+            }
+            resolve(hash);
+        }),
+    ); // eslint-disable-line
+    return hashedPassword;
+};
+
+const checkPasswordHash = async (plainTextPassword, hashedPassword) => {
+    const match = await bcrypt.compare(plainTextPassword, hashedPassword);
+    if (match) {
+        return true;
+    }
+    return false;
+};
 
 const generateAuthToken = () => {};
 
