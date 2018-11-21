@@ -30,4 +30,4 @@ const useEnvVars = () => {
         }));
 };
 
-module.exports = useEnvVars;
+export default useEnvVars;

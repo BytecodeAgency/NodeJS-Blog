@@ -2,12 +2,13 @@
 
 [![Build Status](https://travis-ci.org/lucianonooijen/NodeJS-Blog.svg?branch=master)](https://travis-ci.org/lucianonooijen/NodeJS-Blog)
 [![codecov](https://codecov.io/gh/lucianonooijen/NodeJS-Blog/branch/master/graph/badge.svg)](https://codecov.io/gh/lucianonooijen/NodeJS-Blog)
+[![Known Vulnerabilities](https://snyk.io/test/github/lucianonooijen/NodeJS-Blog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/lucianonooijen/NodeJS-Blog?targetFile=package.json)
+
 [![npm version](https://badge.fury.io/js/nodejs-blog.svg)](https://badge.fury.io/js/nodejs-blog)
 [![NodeJS Version](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
 **NOTE: THIS PACKAGE IS STILL IN DEVELOPMENT! RELEASE OF v1.0.0 WILL BE AROUND DECEMBER 1st, 2018.**
-
 
 Blog API developed by Bytecode Digital Agency as free (as in freedom) open source software. Built in NodeJS. Available as a standalone server, or as a NPM package
 
@@ -84,6 +85,7 @@ For development, the following commands are available:
 | `yarn run coverage` | Creates coverage report, for this the test database should also be available |
 | `yarn run migrate` | Migrates your database (normal one, not test database) to the most recent migration, seeds will not be ran |
 | `yarn run reinstall` | Deletes the `node_modules/` folder and reinstalls everything, if you get some stange dependency errors, run this command |
+| `yarn run clean` | Deletes folders `build/`, `dist/` and `coverage/` |
 
 ### Folder structure
 

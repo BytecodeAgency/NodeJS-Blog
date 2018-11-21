@@ -14,4 +14,4 @@ const useTestDatabase = () => {
     afterAll(() => knex.destroy());
 };
 
-module.exports = useTestDatabase;
+export default useTestDatabase;

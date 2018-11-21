@@ -1,4 +1,5 @@
-const { useTestDatabase } = require('../config');
+import { useTestDatabase } from '../config/index';
+
 const {
     listUsers,
     getUser,
@@ -21,8 +22,8 @@ const newUser = {
 describe('Test if Users CRUD operations are working correctly', () => {
     test('Listing all Users should return rows', async () => {
         expect.assertions(1);
-        const Users = await listUsers();
-        expect(Users.length).toBeGreaterThan(0);
+        const users = await listUsers();
+        expect(users.length).toBeGreaterThan(0);
     });
 
     test('Fetching a single User should return an User', async () => {
@@ -39,11 +40,11 @@ describe('Test if Users CRUD operations are working correctly', () => {
 
     test('Adding a new User should add a single row', async () => {
         expect.assertions(1);
-        const UsersBefore = await listUsers();
-        const userLengthBefore = UsersBefore.length;
+        const usersBefore = await listUsers();
+        const userLengthBefore = usersBefore.length;
         return addUser(newUser).then(async () => {
-            const UsersAfter = await listUsers();
-            const userLengthAfter = UsersAfter.length;
+            const usersAfter = await listUsers();
+            const userLengthAfter = usersAfter.length;
             expect(userLengthAfter).toBe(userLengthBefore + 1);
         });
     });

@@ -25,14 +25,18 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "dev": "nodemon server/server.js",
-    "start": "node server/server.js",
-    "lint": "eslint --ext .jsx,.js,.ts .",
+    "dev": "nodemon",
+    "start": "ts-node server/server.ts",
+    "build": "tsc",
+    "lint": "yarn run lint:js && yarn run lint:ts",
+    "lint:js": "eslint --ext .js,.jsx .",
+    "lint:ts": "tslint --project .",
     "test": "NODE_ENV=test jest -i",
     "test:watch": "NODE_ENV=test jest -i --watch",
     "coverage": "NODE_ENV=test jest -i --coverage",
     "migrate": "knex migrate:latest",
-    "reinstall": "rm -rf node_modules && yarn"
+    "reinstall": "rm -rf node_modules && yarn",
+    "clean": "rm -rf dist build coverage"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -44,9 +48,16 @@
     "morgan": "^1.9.1",
     "pg": "^7.6.1",
     "sqreen": "^1.27.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6",
     "yarn": "^1.12.3"
   },
   "devDependencies": {
+    "@types/eslint": "^4.16.4",
+    "@types/express": "^4.16.0",
+    "@types/jest": "^23.3.9",
+    "@types/knex": "^0.15.1",
+    "@types/node": "^10.12.9",
     "babel-eslint": "^10.0.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -63,7 +74,13 @@
     "prettier-eslint": "^8.8.2",
     "prettierrc": "^0.0.0-5",
     "response-time": "^2.3.2",
-    "supertest": "^3.3.0"
+    "sqlite3": "^4.0.3",
+    "supertest": "^3.3.0",
+    "ts-jest": "^23.10.4",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript-eslint-parser": "^21.0.1"
   },
   "env": {
     "params": {
