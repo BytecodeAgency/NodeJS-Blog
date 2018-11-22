@@ -6,6 +6,9 @@ const testPassword = 'the_test_password';
 const getPasswordHash = async () =>
     authHelper.generatePasswordHash(testPassword);
 
+// tslint:disable-next-line
+const invalidJWT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6MTU0Mjg5MzYyNSwiYXVkIjoiIiwic3ViIjoiIiwiR2l2ZW5OYW1lIjoiSm9obm55In0.OYdV9Hh3DjtQw1BHtgM1U9Ugrk4T_TZHh4YU6Fsofws';
+
 describe('Authentication helper', () => {
     test('generatePasswordHash should not return the password', async () => {
         expect.assertions(1);
@@ -22,7 +25,8 @@ describe('Authentication helper', () => {
     test('generatePasswordHash should generate a valid hash', async () => {
         expect.assertions(1);
         const testPasswordHash = await getPasswordHash();
-        const passwordCheck = await authHelper.checkPasswordHash(testPassword, testPasswordHash);
+        const passwordCheck =
+            await authHelper.checkPasswordHash(testPassword, testPasswordHash);
         expect(passwordCheck).toBe(true);
     });
 
@@ -42,9 +46,10 @@ describe('Authentication helper', () => {
         const authToken = authHelper.generateJWT(payloadData);
         const decodedPayload = authHelper.decodeJWT(authToken);
         expect(decodedPayload).toEqual(payload);
+        expect(decodedPayload.data).toEqual(payloadData);
     });
 
-    test('JWT expiry data create a valid date object', () => {
+    test('JWT dates create a valid date object', () => {
         const payload = {
             user: 'Test',
         };
@@ -60,8 +65,26 @@ describe('Authentication helper', () => {
         };
         const authToken = authHelper.generateJWT(payload);
         const decodedPayload = authHelper.decodeJWT(authToken);
-        const payloadDate = decodedPayload.expires;
-        expect(payloadDate).toBeGreaterThan(Date.now());
+        const payloadIssuedAtDate = decodedPayload.iat;
+
+        // Precise to 1 second TODO: Test this better
+        const issuedDate = Math.round(payloadIssuedAtDate / 1000);
+        const nowDate = Math.round(Date.now() / 1000);
+        expect(issuedDate).toBe(nowDate);
+    });
+
+    test('JWT issued at date should be now', () => {
+        const payload = {
+            user: 'Test',
+        };
+        const authToken = authHelper.generateJWT(payload);
+        const decodedPayload = authHelper.decodeJWT(authToken);
+        const payloadIssuedAt = decodedPayload.iat;
+
+        // Precise to 1 second TODO: Test this better
+        const payloadIAT = Math.round(payloadIssuedAt / 1000);
+        const expectedIAT = Math.round(Date.now() / 1000);
+        expect(payloadIAT).toBe(expectedIAT);
     });
 
     test('JWT should expire in JWT_EXPIRES_IN_DAYS days', () => {
@@ -70,10 +93,16 @@ describe('Authentication helper', () => {
         };
         const authToken = authHelper.generateJWT(payload);
         const decodedPayload = authHelper.decodeJWT(authToken);
-        const payloadDate = decodedPayload.expires;
-        const expectedExpiryDate = authHelper.calculateExpiryDate();
+        const payloadIssuedAtDate = decodedPayload.iat;
+        const payloadExpiryDate = decodedPayload.exp;
+        const calculatedDays = authHelper.calculateDates();
 
-        // Precise to 10 seconds TODO: Test this better
-        expect(Math.floor(payloadDate / 10)).toBe(Math.floor(expectedExpiryDate / 10));
+        // Precise to 1 second TODO: Test this better
+        const payloadIAT = Math.round(payloadIssuedAtDate / 1000);
+        const expectedIAT = Math.round(calculatedDays.iat / 1000);
+        const payloadEXP = Math.round(payloadExpiryDate / 1000);
+        const expectedEXP = Math.round(calculatedDays.exp / 1000);
+        expect(payloadIAT).toBe(expectedIAT);
+        expect(payloadEXP).toBe(expectedEXP);
     });
 });

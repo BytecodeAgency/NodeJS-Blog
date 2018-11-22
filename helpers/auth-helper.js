@@ -27,16 +27,23 @@ const checkPasswordHash = async (plainTextPassword, hashedPassword) => {
     return false;
 };
 
-const calculateExpiryDate = () => {
+const calculateDates = () => {
     const date = new Date();
-    const expiryDate = date.setDate(date.getDate() + jwtExpiresInDays);
-    return expiryDate;
+    const issuedAt = date.setDate(date.getDate());
+    const issuedAtDate = new Date(issuedAt);
+    const expiryDate = date.setDate(issuedAtDate.getDate() + jwtExpiresInDays);
+    const dates = {
+        iat: issuedAt,
+        exp: expiryDate,
+    };
+    return dates;
 };
 
 // TODO: Make it possible to mock payload of x days ago
 const generatePayload = data => {
+    const dates = calculateDates();
     const payload = {
-        expires: calculateExpiryDate(),
+        ...dates,
         data,
     };
     return payload;
@@ -54,7 +61,7 @@ const decodeJWT = token => {
 };
 
 const authHelper = {
-    calculateExpiryDate,
+    calculateDates,
     generatePayload,
     generatePasswordHash,
     checkPasswordHash,
