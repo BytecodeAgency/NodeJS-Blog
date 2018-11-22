@@ -11,7 +11,7 @@ const generatePasswordHash = async plainTextPassword => {
     const hashedPassword = await new Promise((resolve, reject) =>
         bcrypt.hash(plainTextPassword, saltRounds, (err, hash) => {
             if (err) {
-                reject(hash);
+                reject(err);
             }
             resolve(hash);
         }),
