@@ -1,5 +1,7 @@
 import { useTestDatabase } from '../config/index';
 
+const { authHelper } = require('../../helpers');
+
 const {
     listUsers,
     getUser,
@@ -50,15 +52,25 @@ describe('Test if Users CRUD operations are working correctly', () => {
     });
 
     test('Adding a new User should return the new User', async () => {
-        expect.assertions(7);
+        expect.assertions(6);
         const addedUser = await addUser(newUser);
         expect(typeof addedUser.id).toBe('number');
         expect(addedUser.username).toBe(newUser.username);
         expect(addedUser.email).toBe(newUser.email);
         expect(addedUser.first_name).toBe(newUser.first_name);
         expect(addedUser.last_name).toBe(newUser.last_name);
-        expect(addedUser.password).not.toBe(newUser.password); // Hashed pass
         expect(addedUser.author_id).toBe(newUser.author_id);
+    });
+
+    test('Adding a new User should have a hashed password', async () => {
+        const { checkPasswordHash } = authHelper;
+        const unhashedPassword = newUser.password;
+        expect.assertions(2);
+        const addedUser = await addUser(newUser);
+        const hashed = addedUser.password;
+        const isValidHash = await checkPasswordHash(unhashedPassword, hashed);
+        expect(hashed).not.toBe(newUser.password);
+        expect(isValidHash).toBe(true);
     });
 
     test('Updating an User should return the modified data', async () => {

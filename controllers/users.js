@@ -1,4 +1,4 @@
-const { knex } = require('../helpers');
+const { knex, authHelper } = require('../helpers');
 
 const listUsers = async () => {
     const Users = await knex.select('*').from('users');
@@ -14,12 +14,13 @@ const getUser = async id => {
 };
 
 const addUser = async user => {
+    const passwordHash = await authHelper.generatePasswordHash(user.password);
     const newUserData = {
         username: user.username,
         email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
-        password: `${user.password}NONHASHED!`, // TODO: Add hashing
+        password: passwordHash,
         author_id: user.author_id,
     };
     const returning = [
