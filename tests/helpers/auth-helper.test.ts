@@ -1,13 +1,15 @@
+import * as jwt from 'jwt-simple';
+
 const { authHelper } = require('../../helpers');
 
 const { JWT_SECRET, JWT_EXPIRES_IN_DAYS } = process.env;
 
+const decimalRadix = 10;
+const jwtExpiresInDays = parseInt(JWT_EXPIRES_IN_DAYS || '7', decimalRadix);
+
 const testPassword = 'the_test_password';
 const getPasswordHash = async () =>
     authHelper.generatePasswordHash(testPassword);
-
-// tslint:disable-next-line
-const invalidJWT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6MTU0Mjg5MzYyNSwiYXVkIjoiIiwic3ViIjoiIiwiR2l2ZW5OYW1lIjoiSm9obm55In0.OYdV9Hh3DjtQw1BHtgM1U9Ugrk4T_TZHh4YU6Fsofws';
 
 describe('Authentication helper', () => {
     test('generatePasswordHash should not return the password', async () => {
@@ -104,5 +106,35 @@ describe('Authentication helper', () => {
         const expectedEXP = Math.round(calculatedDays.exp / 1000);
         expect(payloadIAT).toBe(expectedIAT);
         expect(payloadEXP).toBe(expectedEXP);
+    });
+
+    test('decodeJWT should throw error if JWT is invalid', () => {
+        const invalidJWT = jwt.encode({ data: 'invalid' }, 'invalid_secret');
+        expect(() => authHelper.gecodeJWT(invalidJWT)).toThrowError();
+    });
+
+    test('validateJWT should throw error if JWT is invalid', () => {
+        const invalidJWT = jwt.encode({ data: 'invalid' }, 'invalid_secret');
+        expect(() => authHelper.gecodeJWT(invalidJWT)).toThrowError();
+    });
+
+    test('validateJWT should throw error if JWT is expired', () => {
+        const payload = {
+            user: 'Test',
+        };
+        const date = new Date();
+        const issuedAt = date.setDate(date.getDate() - jwtExpiresInDays - 1);
+        const expiredJWT = authHelper.generateJWT(payload, issuedAt);
+        expect(() => authHelper.validateJWT(expiredJWT))
+            .toThrowError('Token expired');
+    });
+
+    test('validateJWT should return data if JWT is valid, not expired', () => {
+        const payloadData = {
+            user: 'Test',
+        };
+        const validJWT = authHelper.generateJWT(payloadData);
+        const expectedPayload = authHelper.generatePayload(payloadData);
+        expect(authHelper.validateJWT(validJWT)).toEqual(expectedPayload);
     });
 });
