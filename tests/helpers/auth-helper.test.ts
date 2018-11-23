@@ -2,7 +2,7 @@ import * as jwt from 'jwt-simple';
 
 const { authHelper } = require('../../helpers');
 
-const { JWT_SECRET, JWT_EXPIRES_IN_DAYS } = process.env;
+const { JWT_EXPIRES_IN_DAYS } = process.env;
 
 const decimalRadix = 10;
 const jwtExpiresInDays = parseInt(JWT_EXPIRES_IN_DAYS || '7', decimalRadix);
@@ -110,12 +110,7 @@ describe('Authentication helper', () => {
 
     test('decodeJWT should throw error if JWT is invalid', () => {
         const invalidJWT = jwt.encode({ data: 'invalid' }, 'invalid_secret');
-        expect(() => authHelper.gecodeJWT(invalidJWT)).toThrowError();
-    });
-
-    test('validateJWT should throw error if JWT is invalid', () => {
-        const invalidJWT = jwt.encode({ data: 'invalid' }, 'invalid_secret');
-        expect(() => authHelper.gecodeJWT(invalidJWT)).toThrowError();
+        expect(() => authHelper.decodeJWT(invalidJWT)).toThrowError();
     });
 
     test('validateJWT should throw error if JWT is expired', () => {
