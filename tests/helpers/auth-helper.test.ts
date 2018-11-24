@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as jwt from 'jwt-simple';
 
 const { authHelper } = require('../../helpers');

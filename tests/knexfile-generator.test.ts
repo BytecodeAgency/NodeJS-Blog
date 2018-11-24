@@ -1,5 +1,6 @@
 /* eslint-disable function-paren-newline */
 
+// @ts-ignore
 const generateKnexConfig = require('../database/generate-knexfile');
 const {
     getNodeEnvSpecificDefaults,
@@ -7,6 +8,7 @@ const {
 } = require('../database/generate-knexfile');
 
 const {
+    // @ts-ignore
     NODE_ENV,
     KNEX_DEBUG,
     DB_CLIENT_TEST,

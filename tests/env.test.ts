@@ -50,6 +50,7 @@ describe('Custom environment variables via .env file', () => {
         envVarObjectArray.forEach(envVar => {
             const envVarName = Object.keys(envVar)[0];
             const envVarValue = envVar[envVarName];
+            // @ts-ignore
             const envVarLength = process.env[envVarName].split('').length;
             expect(envVarLength).toBeGreaterThan(0);
         });
