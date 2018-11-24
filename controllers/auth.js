@@ -1,15 +1,8 @@
 const { authHelper, knex } = require('../helpers');
 const { Users } = require('./');
 
-const {
-    calculateDates,
-    generatePayload,
-    generatePasswordHash,
-    checkPasswordHash,
-    generateJWT,
-    decodeJWT,
-    validateJWT,
-} = authHelper;
+// eslint-disable-next-line
+const { checkPasswordHash, generateJWT, decodeJWT, validateJWT } = authHelper;
 
 const getUserByUsername = async username => {
     const user = await knex
