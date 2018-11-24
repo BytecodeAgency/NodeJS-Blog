@@ -86,6 +86,13 @@ describe('Auth Controller', () => {
         expect(invalidTokenIsValid).toBe(false);
     });
 
+    test('validateToken should fail if token is invalid format', async () => {
+        expect.assertions(1);
+        const invalidToken = 'thisisaninvalidtoken';
+        const invalidTokenIsValid = await validateToken(invalidToken);
+        expect(invalidTokenIsValid).toBe(false);
+    });
+
     test('validateToken should fail if token has expired', async () => {
         expect.assertions(1);
         const addedUser = await addUser(testUser2);

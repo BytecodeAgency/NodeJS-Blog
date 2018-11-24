@@ -47,12 +47,23 @@ const generateToken = async (username, password) => {
 };
 
 const validateToken = async token => {
-    const decodedToken = decodeJWT(token);
+    let decodedToken = '';
+
+    // Check if token can be decoded, is valid format
+    try {
+        decodedToken = decodeJWT(token);
+    } catch (err) {
+        return false;
+    }
+
+    // Check if token has not expired
     try {
         validateJWT(token);
     } catch (err) {
         return false;
     }
+
+    // Check if user from payload exists
     const tokenUserID = decodedToken.data.id;
     const tokenUser = await Users.getUser(tokenUserID);
     if (!tokenUser) {
