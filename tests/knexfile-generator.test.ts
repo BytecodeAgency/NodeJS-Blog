@@ -1,16 +1,14 @@
 /* eslint-disable function-paren-newline */
 
-import { useEnvVars } from './config/index';
-
+// @ts-ignore
 const generateKnexConfig = require('../database/generate-knexfile');
 const {
     getNodeEnvSpecificDefaults,
     getConfigEntry,
 } = require('../database/generate-knexfile');
 
-useEnvVars();
-
 const {
+    // @ts-ignore
     NODE_ENV,
     KNEX_DEBUG,
     DB_CLIENT_TEST,

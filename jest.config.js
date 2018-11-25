@@ -116,7 +116,7 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: ['./tests/config/setup.js'],
+  setupFiles: ['./tests/config/global-setup.ts'],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
   // setupTestFrameworkScriptFile: null,
@@ -180,4 +180,12 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+
+  globals: {
+    'ts-jest': {
+      diagnostics: {
+        ignoreCodes: [2451, 2532] // TODO: Fix
+      }
+    }
+  }
 };

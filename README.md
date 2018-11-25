@@ -72,6 +72,8 @@ Set your database details and preferences in the `.env` file and run `yarn run s
 
 The API documentation can be generated using SwaggerUI. The contents can be found in `./swagger.yml`.
 
+For authentication, add a `Authorization` header, with a bearer token, following the `Bearer [jwt-token]` convention.
+
 ## Development
 
 For development, the following commands are available:
