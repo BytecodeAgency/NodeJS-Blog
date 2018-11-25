@@ -12,6 +12,13 @@ const testPassword = 'the_test_password';
 const getPasswordHash = async () =>
     authHelper.generatePasswordHash(testPassword);
 
+const baseTimeDate = new Date();
+const baseTime = baseTimeDate.setDate(baseTimeDate.getDate());
+
+const payloadData = {
+    user: 'Test',
+};
+
 describe('Authentication helper', () => {
     test('generatePasswordHash should not return the password', async () => {
         expect.assertions(1);
@@ -34,17 +41,11 @@ describe('Authentication helper', () => {
     });
 
     test('generateJWT should return a string', () => {
-        const payloadData = {
-            user: 'Test',
-        };
         const authToken = authHelper.generateJWT(payloadData);
         expect(typeof authToken).toBe('string');
     });
 
     test('decodeJWT should return the correct payload', () => {
-        const payloadData = {
-            user: 'Test',
-        };
         const payload = authHelper.generatePayload(payloadData);
         const authToken = authHelper.generateJWT(payloadData);
         const decodedPayload = authHelper.decodeJWT(authToken);
@@ -53,60 +54,35 @@ describe('Authentication helper', () => {
     });
 
     test('JWT dates create a valid date object', () => {
-        const payload = {
-            user: 'Test',
-        };
-        const authToken = authHelper.generateJWT(payload);
+        const authToken = authHelper.generateJWT(payloadData);
         const decodedPayload = authHelper.decodeJWT(authToken);
         const payloadDate = new Date(decodedPayload.expires);
         expect(payloadDate).toBeInstanceOf(Date);
     });
 
     test('JWT expiry date should be in the future', () => {
-        const payload = {
-            user: 'Test',
-        };
-        const authToken = authHelper.generateJWT(payload);
+        const authToken = authHelper.generateJWT(payloadData, baseTime);
         const decodedPayload = authHelper.decodeJWT(authToken);
-        const payloadIssuedAtDate = decodedPayload.iat;
-
-        // Precise to 1 second TODO: Test this better
-        const issuedDate = Math.round(payloadIssuedAtDate / 1000);
-        const nowDate = Math.round(Date.now() / 1000);
-        expect(issuedDate).toBe(nowDate);
+        const payloadExp = decodedPayload.exp;
+        expect(payloadExp).toBeGreaterThan(baseTime);
     });
 
     test('JWT issued at date should be now', () => {
-        const payload = {
-            user: 'Test',
-        };
-        const authToken = authHelper.generateJWT(payload);
+        const authToken = authHelper.generateJWT(payloadData, baseTime);
         const decodedPayload = authHelper.decodeJWT(authToken);
         const payloadIssuedAt = decodedPayload.iat;
-
-        // Precise to 1 second TODO: Test this better
-        const payloadIAT = Math.round(payloadIssuedAt / 1000);
-        const expectedIAT = Math.round(Date.now() / 1000);
-        expect(payloadIAT).toBe(expectedIAT);
+        expect(payloadIssuedAt).toBe(baseTime);
     });
 
+    // TODO: Fix flakyness
     test('JWT should expire in JWT_EXPIRES_IN_DAYS days', () => {
-        const payload = {
-            user: 'Test',
-        };
-        const authToken = authHelper.generateJWT(payload);
+        const authToken = authHelper.generateJWT(payloadData, baseTime);
         const decodedPayload = authHelper.decodeJWT(authToken);
         const payloadIssuedAtDate = decodedPayload.iat;
         const payloadExpiryDate = decodedPayload.exp;
-        const calculatedDays = authHelper.calculateDates();
-
-        // Precise to 1 second TODO: Test this better
-        const payloadIAT = Math.round(payloadIssuedAtDate / 1000);
-        const expectedIAT = Math.round(calculatedDays.iat / 1000);
-        const payloadEXP = Math.round(payloadExpiryDate / 1000);
-        const expectedEXP = Math.round(calculatedDays.exp / 1000);
-        expect(payloadIAT).toBe(expectedIAT);
-        expect(payloadEXP).toBe(expectedEXP);
+        const calculatedDays = authHelper.calculateDates(baseTime);
+        expect(payloadIssuedAtDate).toBe(calculatedDays.iat);
+        expect(payloadExpiryDate).toBe(calculatedDays.exp);
     });
 
     test('decodeJWT should throw error if JWT is invalid', () => {
@@ -115,22 +91,17 @@ describe('Authentication helper', () => {
     });
 
     test('validateJWT should throw error if JWT is expired', () => {
-        const payload = {
-            user: 'Test',
-        };
-        const date = new Date();
+        const date = new Date(baseTime);
         const issuedAt = date.setDate(date.getDate() - jwtExpiresInDays - 1);
-        const expiredJWT = authHelper.generateJWT(payload, issuedAt);
+        const expiredJWT = authHelper.generateJWT(payloadData, issuedAt);
         expect(() => authHelper.validateJWT(expiredJWT))
             .toThrowError('Token expired');
     });
 
+    // TODO: Fix flakyness
     test('validateJWT should return data if JWT is valid, not expired', () => {
-        const payloadData = {
-            user: 'Test',
-        };
-        const validJWT = authHelper.generateJWT(payloadData);
-        const expectedPayload = authHelper.generatePayload(payloadData);
-        expect(authHelper.validateJWT(validJWT)).toEqual(expectedPayload);
+        const validJWT = authHelper.generateJWT(payloadData, baseTime);
+        const expectedData = authHelper.generatePayload(payloadData, baseTime);
+        expect(authHelper.validateJWT(validJWT)).toEqual(expectedData);
     });
 });
