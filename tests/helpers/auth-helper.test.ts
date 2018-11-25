@@ -74,15 +74,17 @@ describe('Authentication helper', () => {
         expect(payloadIssuedAt).toBe(baseTime);
     });
 
-    // TODO: Fix flakyness
     test('JWT should expire in JWT_EXPIRES_IN_DAYS days', () => {
         const authToken = authHelper.generateJWT(payloadData, baseTime);
         const decodedPayload = authHelper.decodeJWT(authToken);
         const payloadIssuedAtDate = decodedPayload.iat;
         const payloadExpiryDate = decodedPayload.exp;
-        const calculatedDays = authHelper.calculateDates(baseTime);
-        expect(payloadIssuedAtDate).toBe(calculatedDays.iat);
-        expect(payloadExpiryDate).toBe(calculatedDays.exp);
+        const expectedDifferenceInMs = jwtExpiresInDays * 1000 * 60 * 60 * 24;
+        const upperBound = expectedDifferenceInMs + 2500;
+        const lowerBound = expectedDifferenceInMs - 2500;
+        const difference = payloadExpiryDate - payloadIssuedAtDate;
+        expect(difference).toBeGreaterThanOrEqual(lowerBound);
+        expect(difference).toBeLessThanOrEqual(upperBound);
     });
 
     test('decodeJWT should throw error if JWT is invalid', () => {
@@ -98,10 +100,11 @@ describe('Authentication helper', () => {
             .toThrowError('Token expired');
     });
 
-    // TODO: Fix flakyness
     test('validateJWT should return data if JWT is valid, not expired', () => {
         const validJWT = authHelper.generateJWT(payloadData, baseTime);
-        const expectedData = authHelper.generatePayload(payloadData, baseTime);
-        expect(authHelper.validateJWT(validJWT)).toEqual(expectedData);
+        const payload = authHelper.generatePayload(payloadData, baseTime);
+        const receivedDate = authHelper.validateJWT(validJWT).data;
+        const expectedData = payload.data;
+        expect(receivedDate).toEqual(expectedData);
     });
 });
