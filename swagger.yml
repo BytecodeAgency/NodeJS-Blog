@@ -564,7 +564,7 @@ components:
           type: 'string'
         image_url:
           type: 'string'
-        markdown_content:
+        html_content:
           type: 'string'
         related_articles:
           type: 'array'

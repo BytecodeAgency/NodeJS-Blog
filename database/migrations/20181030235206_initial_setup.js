@@ -39,7 +39,7 @@ const createArticleContentTable = table => {
     table.integer('article_id').notNullable().unique().references('id').inTable('articles');
     table.string('summary').notNullable();
     table.string('image_url').notNullable();
-    table.text('markdown_content').notNullable();
+    table.text('html_content').notNullable();
 };
 
 const createRelatedArticlesTable = table => {
