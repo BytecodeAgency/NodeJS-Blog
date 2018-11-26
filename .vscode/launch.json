@@ -8,19 +8,16 @@
             "type": "node",
             "name": "Launch Jest Tests",
             "request": "launch",
+            "env": {"NODE_ENV": "test"},
             "args": [
-                "--runInBand"
+                "--runInBand",
+                "-i"
             ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
-            "program": "${workspaceFolder}/node_modules/jest/bin/jest"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/server.js"
+            "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+            "runtimeExecutable": "/usr/local/bin/node"
         },
     ]
 }
