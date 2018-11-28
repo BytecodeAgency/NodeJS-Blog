@@ -3,21 +3,25 @@
 
 const { knex } = require('../helpers');
 
+const fieldsBase = [
+    'articles.id',
+    'articles.title',
+    'articles.subtitle',
+    'articles.slug',
+    'articles.posted_on',
+    'article_content.image_url AS article_image_url',
+    'article_content.summary',
+    'authors.name AS author_name',
+    'authors.role AS author_role',
+    'authors.image_url AS author_image_url',
+    'categories.name AS category_name',
+    'categories.slug AS category_slug',
+];
+
 const listArticles = async () => {
     const fields = [
-        'articles.id',
-        'articles.title',
-        'articles.subtitle',
-        'articles.slug',
-        'articles.posted_on',
-        'article_content.image_url AS article_image_url',
-        'article_content.summary',
+        ...fieldsBase,
         'article_content.html_content',
-        'authors.name as author_name',
-        'authors.role as author_role',
-        'authors.image_url AS author_image_url',
-        'categories.name AS category_name',
-        'categories.slug as category_slug',
     ];
     const articles = await knex
         .select(fields)
@@ -31,20 +35,7 @@ const listArticles = async () => {
 };
 
 const getRelatedArticles = async id => {
-    const fields = [
-        'articles.id',
-        'articles.title',
-        'articles.subtitle',
-        'articles.slug',
-        'articles.posted_on',
-        'article_content.image_url AS article_image_url',
-        'article_content.summary',
-        'authors.name AS author_name',
-        'authors.role AS author_role',
-        'authors.image_url AS author_image_url',
-        'categories.name AS category_name',
-        'categories.slug AS category_slug',
-    ];
+    const fields = fieldsBase;
     const relatedArticles = await knex
         .select(fields)
         .from('articles')
@@ -69,19 +60,8 @@ const addRelatedArticles = async (id, article) => {
 
 const getArticle = async id => {
     const fields = [
-        'articles.id',
-        'articles.title',
-        'articles.subtitle',
-        'articles.slug',
-        'articles.posted_on',
-        'article_content.image_url AS article_image_url',
-        'article_content.summary',
+        ...fieldsBase,
         'article_content.html_content',
-        'authors.name AS author_name',
-        'authors.role AS author_role',
-        'authors.image_url AS author_image_url',
-        'categories.name AS category_name',
-        'categories.slug AS category_slug',
     ];
     const articles = await knex
         .select(fields)

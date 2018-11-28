@@ -43,7 +43,7 @@ describe('Articles Controller', () => {
     // });
 
     test('getArticle should return an article with content', async () => {
-        expect.assertions(14);
+        expect.assertions(13);
         const article = await getArticle(1);
         expect(typeof article.id).toBe('number');
         expect(typeof article.title).toBe('string');
@@ -58,7 +58,6 @@ describe('Articles Controller', () => {
         expect(typeof article.author_image_url).toBe('string');
         expect(typeof article.category_name).toBe('string');
         expect(typeof article.category_slug).toBe('string');
-        expect(typeof article.related_articles).toBe('array');
     });
 
     // test('calculateReadingTime should calculate reading time', async () => {
@@ -68,15 +67,14 @@ describe('Articles Controller', () => {
     // });
 
     test('getRelatedArticles should return a summary array', async () => {
-        expect.assertions(13);
+        expect.assertions(12);
         const relatedArticles = await getRelatedArticles(1);
         const article = relatedArticles[0];
-        expect(typeof relatedArticles).toBe('array');
         expect(typeof article.id).toBe('number');
         expect(typeof article.title).toBe('string');
         expect(typeof article.subtitle).toBe('string');
         expect(typeof article.slug).toBe('string');
-        expect(typeof article.posted_on).toBe('string');
+        expect(article.posted_on).toBeInstanceOf(Date);
         expect(typeof article.article_image_url).toBe('string');
         expect(typeof article.summary).toBe('string');
         expect(typeof article.author_name).toBe('string');
