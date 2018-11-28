@@ -147,6 +147,7 @@ const addArticle = async article => {
         title: article.title,
         subtitle: article.subtitle,
         posted_on: article.posted_on,
+        hidden: article.hidden,
         slug: article.slug,
         author: article.author,
         category: article.author,

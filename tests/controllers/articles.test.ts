@@ -53,17 +53,33 @@ describe('Articles Controller', () => {
         expect(receivedArticles).toEqual(expectedOutput);
     });
 
-    // test.only('listArticles should not list hidden articles', async () => {
-    //     expect.assertions(1);
-    //     const articles = await listArticles;
-    //     expect(articles.length).toBeGreaterThan(0);
-    // });
+    test('listArticles should not list hidden articles', async () => {
+        expect.assertions(2);
+        const hidden = { hidden: true };
+        const newHiddenArticle = { ...newArticle, ...hidden };
+        const createdArticle = await addArticle(newHiddenArticle);
+        const articles = await listArticles();
+        const articlesWithNewArticleId = await articles.filter(article => {
+            return article.id === createdArticle.id;
+        });
+        expect(await getArticle(createdArticle.id)).toBeDefined();
+        expect(articlesWithNewArticleId.length).toBe(0);
+    });
 
-    // test('listArticles should not list articles from the future', async () => {
-    //     expect.assertions(1);
-    //     const articles = await listArticles;
-    //     expect(articles.length).toBeGreaterThan(0);
-    // });
+    test('listArticles should not list articles from the future', async () => {
+        expect.assertions(2);
+        const date = new Date();
+        const futureDays = date.setDate(date.getDate() + 100);
+        const future = { posted_on: new Date(futureDays) };
+        const futureArticle = { ...newArticle, ...future };
+        const createdArticle = await addArticle(futureArticle);
+        const articles = await listArticles();
+        const articlesWithNewArticleId = await articles.filter(article => {
+            return article.id === createdArticle.id;
+        });
+        expect(await getArticle(createdArticle.id)).toBeDefined();
+        expect(articlesWithNewArticleId.length).toBe(0);
+    });
 
     test('getArticle should return an article with content', async () => {
         expect.assertions(14);
@@ -160,7 +176,7 @@ describe('Articles Controller', () => {
         expect(response).toEqual(emptyArray);
     });
 
-    test.only('addArticle should add an article correctly', async () => {
+    test('addArticle should add an article correctly', async () => {
         expect.assertions(15);
         const addedArticle = await addArticle(newArticle);
         expect(typeof addedArticle).toBe('object');
