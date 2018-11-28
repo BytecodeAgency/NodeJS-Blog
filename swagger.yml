@@ -566,6 +566,8 @@ components:
           type: 'string'
         html_content:
           type: 'string'
+        reading_time:
+          type: 'integer'
         related_articles:
           type: 'array'
           items:

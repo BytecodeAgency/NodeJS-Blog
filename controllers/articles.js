@@ -18,6 +18,29 @@ const fieldsBase = [
     'categories.slug AS category_slug',
 ];
 
+const calculateReadingTime = text => {
+    try {
+        const wordsPerMinute = 275;
+        const wordArr = text.split(' ');
+        const textWordAmount = wordArr.length;
+        const readingTimeInMinutes = Math.floor(textWordAmount / wordsPerMinute);
+        return readingTimeInMinutes;
+    } catch (err) {
+        return null;
+    }
+};
+
+const addReadingTimeToArticles = articles => {
+    const articlesWithReadingTime = articles.map(article => {
+        const articleContent = article.html_content;
+        const readingTime = calculateReadingTime(articleContent);
+        const readingTimeObject = { reading_time: readingTime };
+        const updatedArticle = Object.assign({}, article, readingTimeObject);
+        return updatedArticle;
+    });
+    return articlesWithReadingTime;
+};
+
 const listArticles = async () => {
     const fields = [
         ...fieldsBase,
@@ -31,11 +54,15 @@ const listArticles = async () => {
         .join('authors', 'authors.id', '=', 'articles.author')
         .where('articles.hidden', '=', false)
         .andWhere('articles.posted_on', '<=', knex.raw('now()'));
-    return articles;
+    const articlesWithReadingTime = addReadingTimeToArticles(articles);
+    return articlesWithReadingTime;
 };
 
 const getRelatedArticles = async id => {
-    const fields = fieldsBase;
+    const fields = [
+        ...fieldsBase,
+        'article_content.html_content',
+    ];
     const relatedArticles = await knex
         .select(fields)
         .from('articles')
@@ -46,10 +73,11 @@ const getRelatedArticles = async id => {
         .where('related_articles.article_id', '=', id)
         .andWhere('articles.hidden', '=', false)
         .andWhere('articles.posted_on', '<=', knex.raw('now()'));
-    return relatedArticles;
+    const articlesWithReadingTime = addReadingTimeToArticles(relatedArticles);
+    return articlesWithReadingTime;
 };
 
-const addRelatedArticles = async (id, article) => {
+const getRelatedArticlesToArticleObject = async (id, article) => {
     const relatedArticles = await getRelatedArticles(id);
     const articleWithRelatedArticles = {
         ...article,
@@ -70,8 +98,9 @@ const getArticle = async id => {
         .join('categories', 'categories.id', '=', 'articles.category')
         .join('authors', 'authors.id', '=', 'articles.author')
         .where('articles.id', '=', id);
-    const articleBase = articles[0];
-    const article = await addRelatedArticles(id, articleBase);
+    const articlesWithReadingTime = addReadingTimeToArticles(articles);
+    const articleBase = articlesWithReadingTime[0];
+    const article = await getRelatedArticlesToArticleObject(id, articleBase);
     return article;
 };
 
@@ -95,6 +124,9 @@ const deleteArticle = async id =>
 module.exports = {
     listArticles,
     getRelatedArticles,
+    getRelatedArticlesToArticleObject,
+    calculateReadingTime,
+    addReadingTimeToArticles,
     getArticle,
     addArticle,
     modifyArticles,
