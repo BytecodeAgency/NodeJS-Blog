@@ -7,6 +7,8 @@ const {
     calculateReadingTime,
     addReadingTimeToArticles,
     getArticle,
+    generateRelatedArticles,
+    addToRelatedArticlesTable,
     addArticle,
     modifyArticles,
     deleteArticle,
@@ -51,7 +53,7 @@ describe('Articles Controller', () => {
         expect(receivedArticles).toEqual(expectedOutput);
     });
 
-    // test('listArticles should not list hidden articles', async () => {
+    // test.only('listArticles should not list hidden articles', async () => {
     //     expect.assertions(1);
     //     const articles = await listArticles;
     //     expect(articles.length).toBeGreaterThan(0);
@@ -112,9 +114,6 @@ describe('Articles Controller', () => {
         expect(calculatedReadingTime).toBe(9);
     });
 
-    // test('getArticle should list reading time', async () => {
-    // });
-
     test('getRelatedArticles should return an article array', async () => {
         expect.assertions(14);
         const relatedArticles = await getRelatedArticles(1);
@@ -135,8 +134,51 @@ describe('Articles Controller', () => {
         expect(typeof article.reading_time).toBe('number');
     });
 
-    // test('addArticle should add an article correctly', async () => {
-    // });
+    test('generateRelatedArticles should create valid objects', () => {
+        const testId = 1;
+        const testRelatedIds = [2, 3, 4];
+        const expectedResponse = [
+            { article_id: 1, related_article_id: 2 },
+            { article_id: 1, related_article_id: 3 },
+            { article_id: 1, related_article_id: 4 },
+        ];
+        const response = generateRelatedArticles(testId, testRelatedIds);
+        expect(response).toEqual(expectedResponse);
+    });
+
+    test('addToRelatedArticlesTable cant add empty array', async () => {
+        expect.assertions(1);
+        const emptyArray = [];
+        const response = await addToRelatedArticlesTable(1, emptyArray);
+        expect(response).toEqual(emptyArray);
+    });
+
+    test('addToRelatedArticlesTable works with undefined', async () => {
+        expect.assertions(1);
+        const emptyArray = [];
+        const response = await addToRelatedArticlesTable(1);
+        expect(response).toEqual(emptyArray);
+    });
+
+    test.only('addArticle should add an article correctly', async () => {
+        expect.assertions(15);
+        const addedArticle = await addArticle(newArticle);
+        expect(typeof addedArticle).toBe('object');
+        expect(typeof addedArticle.id).toBe('number');
+        expect(typeof addedArticle.title).toBe('string');
+        expect(typeof addedArticle.subtitle).toBe('string');
+        expect(typeof addedArticle.slug).toBe('string');
+        expect(addedArticle.posted_on).toBeInstanceOf(Date);
+        expect(typeof addedArticle.article_image_url).toBe('string');
+        expect(typeof addedArticle.summary).toBe('string');
+        expect(typeof addedArticle.author_name).toBe('string');
+        expect(typeof addedArticle.author_role).toBe('string');
+        expect(typeof addedArticle.author_image_url).toBe('string');
+        expect(typeof addedArticle.html_content).toBe('string');
+        expect(typeof addedArticle.category_name).toBe('string');
+        expect(typeof addedArticle.category_slug).toBe('string');
+        expect(typeof addedArticle.reading_time).toBe('number');
+    });
 
     // test('addArticle should work with custom posted_on', async () => {
     // });

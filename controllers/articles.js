@@ -104,11 +104,69 @@ const getArticle = async id => {
     return article;
 };
 
-const addArticle = async user => {
-
+const addToArticlesTable = async articleData => {
+    const returning = ['id', 'title', 'subtitle', 'posted_on', 'slug', 'author', 'category'];
+    const addedArticle = await knex('articles')
+        .insert([articleData])
+        .returning(returning);
+    return addedArticle[0];
 };
 
-const modifyArticles = async (id, user) => {
+const addToArticleContentTable = async articleData => {
+    const returning = ['summary', 'image_url', 'html_content'];
+    const addedArticle = await knex('article_content')
+        .insert([articleData])
+        .returning(returning);
+    return addedArticle[0];
+};
+
+const generateRelatedArticles = (id, relatedArticles) => {
+    const relatedArticlesObjects = relatedArticles.map(relatedArticle => {
+        const relatedArticleObject = {
+            article_id: id,
+            related_article_id: relatedArticle,
+        };
+        return relatedArticleObject;
+    });
+    return relatedArticlesObjects;
+};
+
+const addToRelatedArticlesTable = async (id, relatedArticles) => {
+    if (!relatedArticles || relatedArticles.length === 0) {
+        return [];
+    }
+    const relatedArticlesArray = generateRelatedArticles(id, relatedArticles);
+    const addedRelatedArticles = await knex('related_articles')
+        .insert(relatedArticlesArray)
+        .returning('article_id', 'related_article_id');
+    return addedRelatedArticles;
+};
+
+const addArticle = async article => {
+    const articleData = {
+        title: article.title,
+        subtitle: article.subtitle,
+        posted_on: article.posted_on,
+        slug: article.slug,
+        author: article.author,
+        category: article.author,
+    };
+    const addedArticleData = await addToArticlesTable(articleData);
+    const addedArticleId = addedArticleData.id;
+    const articleContentData = {
+        article_id: addedArticleId,
+        summary: article.summary,
+        image_url: article.image_url,
+        html_content: article.html_content,
+    };
+    await addToArticleContentTable(articleContentData);
+    const relatedArticleIds = article.related_articles;
+    await addToRelatedArticlesTable(addedArticleId, relatedArticleIds);
+    const createdArticle = await getArticle(addedArticleId);
+    return createdArticle;
+};
+
+const modifyArticles = async (id, article) => {
 
 };
 
@@ -127,7 +185,9 @@ module.exports = {
     getRelatedArticlesToArticleObject,
     calculateReadingTime,
     addReadingTimeToArticles,
+    addToRelatedArticlesTable,
     getArticle,
+    generateRelatedArticles,
     addArticle,
     modifyArticles,
     deleteArticle,
