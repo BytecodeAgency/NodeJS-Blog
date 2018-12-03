@@ -57,12 +57,16 @@ const validateToken = async token => {
     }
 
     // Check if user from payload exists
-    const tokenUserID = decodedToken.data.id;
-    const tokenUser = await Users.getUser(tokenUserID);
-    if (!tokenUser) {
+    try {
+        const tokenUserID = decodedToken.data.id;
+        const tokenUser = await Users.getUser(tokenUserID);
+        if (!tokenUser) {
+            return false;
+        }
+        return true;
+    } catch (err) {
         return false;
     }
-    return true;
 };
 
 module.exports = {

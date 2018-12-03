@@ -31,7 +31,7 @@ const calculateDates = issuedAtParam => {
     const date = new Date();
     const issuedAt = issuedAtParam || date.setDate(date.getDate());
     const issuedAtDate = new Date(issuedAt);
-    const expiryDate = date.setDate(issuedAtDate.getDate() + jwtExpiresInDays);
+    const expiryDate = issuedAtDate.setDate(issuedAtDate.getDate() + jwtExpiresInDays);
     const dates = {
         iat: issuedAt,
         exp: expiryDate,
@@ -66,7 +66,7 @@ const validateJWT = token => {
     if (decoded.exp < now) {
         throw new Error('Token expired');
     }
-    return decoded;
+    return { ...decoded, now };
 };
 
 const authHelper = {
