@@ -130,9 +130,9 @@
     "@types/node" "*"
 
 "@types/eslint@^4.16.4":
-  version "4.16.4"
-  resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-4.16.4.tgz#9a0d80208b22f0fd1a9d174e76dc675f3802c011"
-  integrity sha512-g+PV8wktZLJrSPrdCZj6aWfa0xqTrGdx3FywlGE8YH13am8PhkhjtA+Wu1fLdV45gtpM1FM8JWnyFwOsLZI4VA==
+  version "4.16.5"
+  resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-4.16.5.tgz#f0b56e011a3f7d01a380a568776f93ec56d7c911"
+  integrity sha512-103C3Adr8UaucsjYBDdKzL9AZk6c6F2gKIlyZOxv48KtmnvNcXoDsEddF4N/DZJNoVFg6NGSbzYodvxix3Md2g==
   dependencies:
     "@types/estree" "*"
     "@types/json-schema" "*"
