@@ -77,8 +77,11 @@ const getRelatedArticles = async id => {
     return articlesWithReadingTime;
 };
 
-const getRelatedArticlesToArticleObject = async (id, article) => {
+const addRelatedArticlesToArticleObject = async (id, article) => {
     const relatedArticles = await getRelatedArticles(id);
+    if (relatedArticles.length === 0) {
+        return article;
+    }
     const articleWithRelatedArticles = {
         ...article,
         related_articles: relatedArticles,
@@ -100,7 +103,7 @@ const getArticle = async id => {
         .where('articles.id', '=', id);
     const articlesWithReadingTime = addReadingTimeToArticles(articles);
     const articleBase = articlesWithReadingTime[0];
-    const article = await getRelatedArticlesToArticleObject(id, articleBase);
+    const article = await addRelatedArticlesToArticleObject(id, articleBase);
     return article;
 };
 
@@ -167,29 +170,34 @@ const addArticle = async article => {
     return createdArticle;
 };
 
-const modifyArticles = async (id, article) => {
+const modifyArticle = async (id, article) => {
 
 };
 
-const deleteArticle = async id =>
-    new Promise(resolve =>
-        knex('users')
-            .returning(['id'])
-            .where({ id })
-            .delete()
-            .then(data => resolve(data[0])),
-        ); // eslint-disable-line
+const deleteArticle = async id => {
+    await knex('related_articles')
+        .where({ article_id: id })
+        .orWhere({ related_article_id: id })
+        .delete();
+    await knex('article_content')
+        .where({ article_id: id })
+        .delete();
+    await knex('articles')
+        .where({ id })
+        .delete();
+    return { id };
+};
 
 module.exports = {
     listArticles,
     getRelatedArticles,
-    getRelatedArticlesToArticleObject,
+    addRelatedArticlesToArticleObject,
     calculateReadingTime,
     addReadingTimeToArticles,
     addToRelatedArticlesTable,
     getArticle,
     generateRelatedArticles,
     addArticle,
-    modifyArticles,
+    modifyArticle,
     deleteArticle,
 };

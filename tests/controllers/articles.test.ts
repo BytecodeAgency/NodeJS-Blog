@@ -3,14 +3,14 @@ import { useTestDatabase } from '../config/index';
 const {
     listArticles,
     getRelatedArticles,
-    getRelatedArticlesToArticleObject,
+    addRelatedArticlesToArticleObject,
     calculateReadingTime,
     addReadingTimeToArticles,
     getArticle,
     generateRelatedArticles,
     addToRelatedArticlesTable,
     addArticle,
-    modifyArticles,
+    modifyArticle,
     deleteArticle,
 } = require('../../controllers/articles');
 
@@ -196,12 +196,17 @@ describe('Articles Controller', () => {
         expect(typeof addedArticle.reading_time).toBe('number');
     });
 
-    // test('addArticle should work with custom posted_on', async () => {
+    // test('addArticle should work with custom posted_on', async () => { TODO:
     // });
 
     // test('modifyArticle should modify an article correctly', async () => {
+
     // });
 
-    // test('deleteArticle should delete an article', async () => {
-    // });
+    test('deleteArticle should delete an article', async () => {
+        expect.assertions(2);
+        return deleteArticle(1)
+            .then(data => expect(data.id).toBe(1))
+            .then(async () => expect(await getArticle(1)).toBeUndefined());
+    });
 });
