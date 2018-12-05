@@ -199,9 +199,41 @@ describe('Articles Controller', () => {
     // test('addArticle should work with custom posted_on', async () => { TODO:
     // });
 
-    // test('modifyArticle should modify an article correctly', async () => {
+    test('modifyArticle should modify an article correctly', async () => {
+        expect.assertions(9);
+        await modifyArticle(1, newArticle);
+        const modifiedArticle = await getArticle(1);
+        expect(modifiedArticle.title).toBe(newArticle.title);
+        expect(modifiedArticle.subtitle).toBe(newArticle.subtitle);
+        expect(modifiedArticle.slug).toBe(newArticle.slug);
+        expect(modifiedArticle.image_url).toBe(newArticle.image_url);
+        expect(modifiedArticle.summary).toBe(newArticle.summary);
+        expect(modifiedArticle.html_content).toBe(newArticle.html_content);
+        expect(modifiedArticle.author).toBe(newArticle.author);
+        expect(modifiedArticle.category).toBe(newArticle.category);
+        expect(modifiedArticle.related_articles)
+            .toBe(newArticle.related_articles);
+    });
 
-    // });
+    test('modifyArticle should work with when partly updating', async () => {
+        expect.assertions(9);
+        const originalArticle = await getArticle(1);
+        const newArticlePart = {
+            title: 'updated title',
+        };
+        await modifyArticle(1, newArticlePart);
+        const modifiedArticle = await getArticle(newArticlePart);
+        expect(modifiedArticle.title).toBe(newArticlePart.title);
+        expect(modifiedArticle.subtitle).toBe(originalArticle.subtitle);
+        expect(modifiedArticle.slug).toBe(originalArticle.slug);
+        expect(modifiedArticle.image_url).toBe(originalArticle.image_url);
+        expect(modifiedArticle.summary).toBe(originalArticle.summary);
+        expect(modifiedArticle.html_content).toBe(originalArticle.html_content);
+        expect(modifiedArticle.author).toBe(originalArticle.author);
+        expect(modifiedArticle.category).toBe(originalArticle.category);
+        expect(modifiedArticle.related_articles)
+            .toBe(originalArticle.related_articles);
+    });
 
     test('deleteArticle should delete an article', async () => {
         expect.assertions(2);
