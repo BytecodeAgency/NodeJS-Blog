@@ -1,5 +1,3 @@
-// TODO: Make this work and stuff
-
 const getKnexInstance = require('knex');
 const { generateKnexfile } = require('../database/generate-knexfile');
 
