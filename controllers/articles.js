@@ -172,42 +172,50 @@ const addArticle = async article => {
 
 // TODO: Test better
 const modifyArticle = async (id, article) => {
-    const articleData = {
-        title: article.title,
-        subtitle: article.subtitle,
-        posted_on: article.posted_on,
-        hidden: article.hidden,
-        slug: article.slug,
-        author: article.author,
-        category: article.author,
-    };
-    const articleContentData = {
-        article_id: id,
-        summary: article.summary,
-        image_url: article.image_url,
-        html_content: article.html_content,
-    };
-    await knex('article_content')
-        .where('article_id', '=', id)
-        .update(articleContentData);
-    await knex('articles')
-        .where('id', '=', id)
-        .update(articleData);
-    const relatedArticlesData = article.relatedArticles;
-    if (relatedArticlesData && relatedArticlesData.length > 0) {
-        // eslint-disable-next-line
-        const relatedArticles = relatedArticlesData.map(relatedArticle => {
-            return {
-                article_id: id,
-                related_article_id: relatedArticle,
-            };
-        });
-        await knex('related_articles')
-            .where('article_id', '=', id)
-            .delete();
-        await knex('related_articles')
-            .insert(relatedArticles);
-    }
+    const articleDataFields = ['title', 'subtitle', 'posted_on', 'hidden', 'slug', 'author', 'category'];
+    const articleContentDataFields = ['article_id', 'summary', 'image_url', 'html_content'];
+
+    const articleData = {};
+    const articleContentData = {};
+
+    articleDataFields.forEach(async field => {
+        if (article[field] !== undefined) {
+            if (Object.keys(articleData).length !== 0) {
+                await knex('articles')
+                    .where('id', '=', id)
+                    .update(field, article[field]);
+            }
+        }
+    });
+    articleContentDataFields.forEach(field => {
+        if (article[field] !== undefined) {
+            articleContentData[field] = article[field];
+        }
+    });
+
+    // if (Object.keys(articleContentData).length !== 0) {
+    //     await knex('article_content')
+    //         .where('article_id', '=', id)
+    //         .update(articleContentData);
+    // }
+
+
+
+    // const relatedArticlesData = article.relatedArticles;
+    // if (relatedArticlesData && relatedArticlesData.length > 0) {
+    //     // eslint-disable-next-line
+    //     const relatedArticles = relatedArticlesData.map(relatedArticle => {
+    //         return {
+    //             article_id: id,
+    //             related_article_id: relatedArticle,
+    //         };
+    //     });
+    //     await knex('related_articles')
+    //         .where('article_id', '=', id)
+    //         .delete();
+    //     await knex('related_articles')
+    //         .insert(relatedArticles);
+    // }
 
     const modifiedArticle = await getArticle(id);
     return modifiedArticle;
