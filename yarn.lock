@@ -5690,9 +5690,9 @@ sqlite3@^4.0.3:
     request "^2.87.0"
 
 sqreen@^1.27.1:
-  version "1.27.1"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.27.1.tgz#312d2c074649d0462f077c45132f201d8c5c9dbf"
-  integrity sha512-lBy1Tn1QnXr6bGALJCQMIiGi2+Jh/YYQfaZy4CLIkYC2k/RyCFg2VKV5a0hFrCiylivhA8oYQB9in5tsaHCucA==
+  version "1.27.3"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.27.3.tgz#a6e570587a58574bf6732d5682465249506dd44e"
+  integrity sha512-PXZcCIHcT0QuHxMFTz/b+1PibMSgtFHb4rLmMnrK94G6W6N0MYiEuD6dtErkfB06mH72bY/fQJGJO1MSr5R0sA==
   dependencies:
     cls-bluebird "^2.0.1"
     commander "^2.18.0"
