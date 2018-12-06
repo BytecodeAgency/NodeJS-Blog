@@ -46,10 +46,8 @@ describe('Authentication helper', () => {
     });
 
     test('decodeJWT should return the correct payload', () => {
-        const payload = authHelper.generatePayload(payloadData);
         const authToken = authHelper.generateJWT(payloadData);
         const decodedPayload = authHelper.decodeJWT(authToken);
-        // expect(decodedPayload).toEqual(payload); // Flaky
         expect(decodedPayload.data).toEqual(payloadData);
     });
 

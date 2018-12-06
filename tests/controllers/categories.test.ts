@@ -1,8 +1,6 @@
 import { useTestDatabase } from '../config/index';
 import blog from '../config/blog';
 
-const { authHelper } = require('../../helpers');
-
 const {
     listCategories,
     getCategory,

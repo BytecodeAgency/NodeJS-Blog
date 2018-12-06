@@ -1,3 +1,5 @@
+import { useTestDatabase } from './config/index';
+
 const nodeBlog = require('../');
 const { authors, auth, users, categories, articles } = require('../');
 
@@ -8,8 +10,17 @@ const database = process.env.DB_NAME_TEST;
 const password = process.env.DB_PASS_TEST;
 const debug = process.env.KNEX_DEBUG === 'true';
 
-const nodeBlogArguments = { client, host, user, database, password, debug };
+const nodeBlogArguments = {
+    client,
+    host,
+    user,
+    database,
+    password,
+    debug,
+};
 const blog = nodeBlog(client, host, user, database, password, debug);
+
+useTestDatabase();
 
 describe('NodeBlog NPM module', () => {
     test('NodeBlog to create a knex instance', () => {
