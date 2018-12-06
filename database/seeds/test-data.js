@@ -73,13 +73,13 @@ const insertArticleContent = knex =>
             article_id: 1,
             summary: 'In short',
             image_url: 'http://placekitten.com/500/500',
-            markdown_content: 'In long',
+            html_content: 'In long',
         },
         {
             article_id: 2,
             summary: 'In short2',
             image_url: 'http://placekitten.com/500/500',
-            markdown_content: 'In long2',
+            html_content: 'In long2',
         },
     ]);
 

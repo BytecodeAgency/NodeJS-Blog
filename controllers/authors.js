@@ -1,11 +1,9 @@
-const { knex } = require('../helpers');
-
-const listAuthors = async () => {
+const listAuthors = async knex => {
     const authors = await knex.select('*').from('authors');
     return authors;
 };
 
-const getAuthor = async id => {
+const getAuthor = async (knex, id) => {
     const author = await knex
         .select('*')
         .from('authors')
@@ -13,7 +11,7 @@ const getAuthor = async id => {
     return author[0];
 };
 
-const addAuthor = async author => {
+const addAuthor = async (knex, author) => {
     const newAuthorData = {
         name: author.name,
         image_url: author.image_url,
@@ -26,11 +24,11 @@ const addAuthor = async author => {
     return newAuthor[0];
 };
 
-const modifyAuthor = async (id, author) => {
+const modifyAuthor = async (knex, id, author) => {
     // eslint-disable-next-line camelcase
     const { name, image_url, role } = author;
     const newAuthorData = { name, image_url, role };
-    const oldAuthorData = getAuthor(id);
+    const oldAuthorData = getAuthor(knex, id);
     const newAuthor = Object.assign({}, { ...oldAuthorData, ...newAuthorData });
     const returning = ['id', 'name', 'image_url', 'role'];
     const modifiedAuthor = await knex('authors')
@@ -40,7 +38,7 @@ const modifyAuthor = async (id, author) => {
     return modifiedAuthor[0];
 };
 
-const deleteAuthor = async id =>
+const deleteAuthor = async (knex, id) =>
     new Promise(resolve => {
         knex('users')
             .where({ author_id: id })

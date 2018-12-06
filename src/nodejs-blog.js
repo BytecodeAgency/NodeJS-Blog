@@ -1,3 +1,3 @@
-const getNodeBlogInstance = require('./nodeblog-class');
+const createNodeBlog = require('./create-node-blog');
 
-module.exports = getNodeBlogInstance;
+module.exports = createNodeBlog;

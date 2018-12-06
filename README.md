@@ -8,8 +8,6 @@
 [![NodeJS Version](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
-**NOTE: THIS PACKAGE IS STILL IN DEVELOPMENT! RELEASE OF v1.0.0 WILL BE AROUND DECEMBER 1st, 2018.**
-
 Blog API developed by Bytecode Digital Agency as free (as in freedom) open source software. Built in NodeJS. Available as a standalone server, or as a NPM package
 
 ## Installation
@@ -35,36 +33,82 @@ For contributing to the development, fork the [GitHub repository](https://github
 To use the NodeJS Blog module, first, import the package
 
 ```js
-const NodeBlog = require('nodejs-blog');
-```
-
-or using ES6 modules
-
-```js
-import NodeBlog from 'nodejs-blog';
+const nodeBlog = require('nodejs-blog');
+const { authors, auth, users, categories, articles } = require('nodejs-blog');
 ```
 
 to start using the package, create a new instance of the NodeBlog class
 
 ```js
-const nodeBlogConfig = {
-    client: 'YOUR_DB_CLIENT', // for more info, see https://knexjs.org/
-    host: 'YOUR_DB_HOST',
-    database: 'YOUR_DB_NAME',
-    user: 'YOUR_DB_USER',
-    pass: 'YOUR_DB_PASS',
-    debug: true || false,
-};
-const nodeBlog = new NodeBlog(nodeBlogConfig);
+const client = 'YOUR_DB_CLIENT'; // for more info, see https://knexjs.org/
+const host = 'YOUR_DB_HOST';
+const database = 'YOUR_DB_NAME';
+const user = 'YOUR_DB_USER';
+const pass = 'YOUR_DB_PASS';
+const debug = true || false;
+
+const blog = nodeBlog(client, host, user, database, password, debug);
+```
+
+For authentication you should set the following environment (`process.env.[variable] = value`) variables, or the auth methods will not work:
+```
+SALT_ROUNDS=number
+JWT_SECRET=string
+JWT_EXPIRES_IN_DAYS=number_of_days
+```
+
+Then you can use the imported functions as you wish, for example:
+
+```js
+const posts = await articles.list(blog);
+```
+
+Just send the `blog` instance as the first argument and the rest of the arguments second. This is because this way the same logic can be applied to multiple blog instances within an application.
+
+The available methods are:
+
+```js
+authors.list(blog)
+authors.get(blog, id)
+authors.add(blog, authorObject)
+authors.modify(blog, id, modifiedData)
+authors.delete(blog, id)
+
+auth.authenticate(blog, username, password) // Returns true/false
+auth.generateToken(blog, username, password) // Returns JWT, throws error if invalid credentials
+auth.decode(jwt) // Returns decoded object
+auth.validate(blog, username, password) // Returns true/false
+
+users.list(blog)
+users.get(blog, id)
+users.add(blog, userObject)
+users.modify(blog, id, modifiedData)
+users.delete(blog, id)
+
+categories.list(blog)
+categories.get(blog, id)
+categories.add(blog, categoryObject)
+categories.modify(blog, id, modifiedData)
+categories.delete(blog, id)
+
+articles.list(blog)
+articles.get(blog, id)
+articles.add(blog, articleObject)
+// articles.modify(blog, id, modifiedData) // not available yet
+articles.delete(blog, id)
 ```
 
 We recommend creating a single file that will create the NodeBlog instance, and `export` this instance, and `import` in all other files where you want to use NodeJS Blog.
 
 For security reasons we recommend using environment variables for loading the configuration. This is also in compliance with the [12 factor app Config guidelines](https://12factor.net/config)
 
-Note: NodeJS blog was made to be used with PostgreSQL, but it should(/could) also be compatible with other databases, as it uses KnexJS under the hood.
+Note: NodeJS blog was made to be used with PostgreSQL, but it should(/could) also be compatible with other databases, as it uses [KnexJS](https://knexjs.org) under the hood.
 
-## Running the API as a standalone service
+*A demo application is currently in development*
+
+## Running the API as a standalone service (still in development, might not work 100%)
+
+First clone the repository and `cd` into the directory.
 
 To run NodeJS Blog as a standalone service, run `cp .env.example .env` to create the `.env` file.
 

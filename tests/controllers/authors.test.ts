@@ -1,4 +1,5 @@
 import { useTestDatabase } from '../config/index';
+import blog from '../config/blog';
 
 const {
     listAuthors,
@@ -19,13 +20,13 @@ const newAuthor = {
 describe('Test if Authors CRUD operations are working correctly', () => {
     test('Listing all Authors should return rows', async () => {
         expect.assertions(1);
-        const authors = await listAuthors();
+        const authors = await listAuthors(blog);
         expect(authors.length).toBeGreaterThan(0);
     });
 
     test('Fetching a single Author should return an Author', async () => {
         expect.assertions(4);
-        const author = await getAuthor(1);
+        const author = await getAuthor(blog, 1);
         expect(author.id).toBe(1);
         expect(typeof author.name).toBe('string');
         expect(typeof author.image_url).toBe('string');
@@ -34,10 +35,10 @@ describe('Test if Authors CRUD operations are working correctly', () => {
 
     test('Adding a new Author should add a single row', async () => {
         expect.assertions(1);
-        const authorsBefore = await listAuthors();
+        const authorsBefore = await listAuthors(blog);
         const authorLengthBefore = authorsBefore.length;
-        return addAuthor(newAuthor).then(async () => {
-            const authorsAfter = await listAuthors();
+        return addAuthor(blog, newAuthor).then(async () => {
+            const authorsAfter = await listAuthors(blog);
             const authorLengthAfter = authorsAfter.length;
             expect(authorLengthAfter).toBe(authorLengthBefore + 1);
         });
@@ -45,7 +46,7 @@ describe('Test if Authors CRUD operations are working correctly', () => {
 
     test('Adding a new Author should return the new Author', async () => {
         expect.assertions(5);
-        const addedAuthor = await addAuthor(newAuthor);
+        const addedAuthor = await addAuthor(blog, newAuthor);
         expect(addedAuthor.id).toBeDefined();
         expect(typeof addedAuthor.id).toBe('number');
         expect(addedAuthor.name).toBe(newAuthor.name);
@@ -55,12 +56,12 @@ describe('Test if Authors CRUD operations are working correctly', () => {
 
     test('Updating an Author should return the modified data', async () => {
         expect.assertions(9);
-        const originalAuthor = await getAuthor(1);
+        const originalAuthor = await getAuthor(blog, 1);
         expect(originalAuthor.id).toBe(1);
         expect(originalAuthor.name).not.toBe(newAuthor.name);
         expect(originalAuthor.image_url).not.toBe(newAuthor.image_url);
         expect(originalAuthor.role).not.toBe(newAuthor.role);
-        const modifiedAuthor = await modifyAuthor(1, newAuthor);
+        const modifiedAuthor = await modifyAuthor(blog, 1, newAuthor);
         expect(modifiedAuthor.id).toBeDefined();
         expect(typeof modifiedAuthor.id).toBe('number');
         expect(modifiedAuthor.name).toBe(newAuthor.name);
@@ -70,8 +71,9 @@ describe('Test if Authors CRUD operations are working correctly', () => {
 
     test('Deleting an Author should return the deleted Author ID', async () => {
         expect.assertions(2);
-        return deleteAuthor(1)
-            .then(data => expect(data.id).toBe(1))
-            .then(async () => expect(await getAuthor(1)).toBeUndefined());
+        const deletedResponse = await deleteAuthor(blog, 1);
+        const deletedAuthor = await getAuthor(blog, 1);
+        expect(deletedResponse.id).toBe(1);
+        expect(deletedAuthor).toBeUndefined();
     });
 });

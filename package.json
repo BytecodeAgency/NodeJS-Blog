@@ -1,6 +1,6 @@
 {
   "name": "nodejs-blog",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "A blog API built in NodeJS that can be used as a standalone application, or included in a NodeJS application",
   "main": "index.js",
   "author": "Luciano Nooijen <luciano@bytecode.nl> (https://bytecode.nl)",
@@ -31,9 +31,9 @@
     "lint": "yarn run lint:js && yarn run lint:ts",
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:ts": "tslint --project .",
-    "test": "NODE_ENV=test jest -i",
+    "test": "NODE_ENV=test jest -i --forceExit",
     "test:watch": "NODE_ENV=test jest -i --watch",
-    "coverage": "NODE_ENV=test jest -i --coverage",
+    "coverage": "NODE_ENV=test jest -i --coverage --forceExit",
     "migrate": "knex migrate:latest",
     "reinstall": "rm -rf node_modules && yarn",
     "clean": "rm -rf dist build coverage"
