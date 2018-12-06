@@ -1,10 +1,10 @@
-const { authHelper, knex } = require('../helpers');
+const { authHelper } = require('../helpers');
 const { Users } = require('./');
 
 // eslint-disable-next-line
 const { checkPasswordHash, generateJWT, decodeJWT, validateJWT } = authHelper;
 
-const getUserByUsername = async username => {
+const getUserByUsername = async (knex, username) => {
     const user = await knex
         .select('*')
         .from('users')
@@ -12,8 +12,8 @@ const getUserByUsername = async username => {
     return user[0];
 };
 
-const authenticateUser = async (username, password) => {
-    const user = await getUserByUsername(username);
+const authenticateUser = async (knex, username, password) => {
+    const user = await getUserByUsername(knex, username);
     const passwordHash = user.password;
     const correctPassword = await checkPasswordHash(password, passwordHash);
     if (correctPassword) {
@@ -22,24 +22,24 @@ const authenticateUser = async (username, password) => {
     return false;
 };
 
-const generateTokenPayload = async username => {
-    const user = await getUserByUsername(username);
+const generateTokenPayload = async (knex, username) => {
+    const user = await getUserByUsername(knex, username);
     const { id, email } = user;
     const tokenPayload = { id, username, email };
     return tokenPayload;
 };
 
-const generateToken = async (username, password) => {
-    const isAuthenticated = await authenticateUser(username, password);
+const generateToken = async (knex, username, password) => {
+    const isAuthenticated = await authenticateUser(knex, username, password);
     if (!isAuthenticated) {
         throw new Error('Incorrect credentials');
     }
-    const payloadData = await generateTokenPayload(username);
+    const payloadData = await generateTokenPayload(knex, username);
     const token = generateJWT(payloadData);
     return token;
 };
 
-const validateToken = async token => {
+const validateToken = async (knex, token) => {
     let decodedToken = '';
 
     // Check if token can be decoded, is valid format
@@ -59,7 +59,7 @@ const validateToken = async token => {
     // Check if user from payload exists
     try {
         const tokenUserID = decodedToken.data.id;
-        const tokenUser = await Users.getUser(tokenUserID);
+        const tokenUser = await Users.getUser(knex, tokenUserID);
         if (!tokenUser) {
             return false;
         }

@@ -1,11 +1,11 @@
-const { knex, authHelper } = require('../helpers');
+const { authHelper } = require('../helpers');
 
-const listUsers = async () => {
+const listUsers = async knex => {
     const Users = await knex.select('*').from('users');
     return Users;
 };
 
-const getUser = async id => {
+const getUser = async (knex, id) => {
     const user = await knex
         .select('*')
         .from('users')
@@ -13,7 +13,7 @@ const getUser = async id => {
     return user[0];
 };
 
-const addUser = async user => {
+const addUser = async (knex, user) => {
     const passwordHash = await authHelper.generatePasswordHash(user.password);
     const newUserData = {
         username: user.username,
@@ -38,7 +38,7 @@ const addUser = async user => {
     return newUser[0];
 };
 
-const modifyUser = async (id, user) => {
+const modifyUser = async (knex, id, user) => {
     const {
         /* eslint-disable camelcase */
         username,
@@ -65,7 +65,7 @@ const modifyUser = async (id, user) => {
         'password',
         'author_id',
     ];
-    const oldUserData = getUser(id);
+    const oldUserData = getUser(knex, id);
     const newUser = Object.assign({}, { ...oldUserData, ...newUserData });
     const modifiedUser = await knex('users')
         .returning(returning)
@@ -74,7 +74,7 @@ const modifyUser = async (id, user) => {
     return modifiedUser[0];
 };
 
-const deleteUser = async id =>
+const deleteUser = async (knex, id) =>
     new Promise(resolve =>
         knex('users')
             .returning(['id'])
