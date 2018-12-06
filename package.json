@@ -1,25 +1,33 @@
 {
   "name": "nodejs-blog",
-  "version": "0.0.8",
+  "version": "1.0.0-alpha.1",
   "description": "A blog API built in NodeJS that can be used as a standalone application, or included in a NodeJS application",
   "main": "index.js",
-  "author": "Luciano Nooijen <luciano@bytecode.nl> (https://bytecode.nl)",
+  "author": "Bytecode Digital Agency <opensource@bytecode.nl> (https://bytecode.nl)",
   "license": "GPL-3.0-only",
   "private": false,
-  "homepage": "https://github.com/lucianonooijen/NodeJS-Blog",
+  "homepage": "https://github.com/BytecodeOpenSource/NodeJS-Blog",
   "bugs": {
-    "url": "https://github.com/lucianonooijen/NodeJS-Blog/issues"
+    "url": "https://github.com/BytecodeOpenSource/NodeJS-Blog/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lucianonooijen/NodeJS-Blog"
+    "url": "https://github.com/BytecodeOpenSource/NodeJS-Blog"
   },
   "keywords": [
     "blog",
+    "blogging",
+    "blog-platform",
+    "platform",
     "bytecode",
     "node-blog",
     "nodejs-blog",
-    "api"
+    "api",
+    "sql",
+    "postgres",
+    "postgresql",
+    "knex",
+    "knexjs"
   ],
   "engines": {
     "node": ">=8.0.0"
