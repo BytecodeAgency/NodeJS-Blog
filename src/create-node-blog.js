@@ -3,7 +3,13 @@
 const getKnexInstance = require('knex');
 const generateKnexfile = require('../database/generate-knexfile');
 
-const { Authors, Auth, Users, Articles } = require('../controllers');
+const {
+    Authors,
+    Auth,
+    Users,
+    Categories,
+    Articles,
+} = require('../controllers');
 
 const authors = {
     list: Authors.listAuthors,
@@ -20,10 +26,18 @@ const auth = {
 
 const users = {
     list: Users.listUsers,
-    get: Users.listUsers,
+    get: Users.getUser,
     add: Users.addUser,
     modify: Users.modifyUser,
     delete: Users.deleteUser,
+};
+
+const categories = {
+    list: Categories.listCategories,
+    get: Categories.getCategory,
+    add: Categories.addCategory,
+    modify: Categories.modifyCategory,
+    delete: Categories.deleteCategory,
 };
 
 const articles = {
@@ -47,4 +61,5 @@ module.exports = createNodeBlogInstance;
 module.exports.authors = authors;
 module.exports.auth = auth;
 module.exports.users = users;
+module.exports.categories = categories;
 module.exports.articles = articles;

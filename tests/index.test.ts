@@ -1,5 +1,5 @@
 const nodeBlog = require('../');
-const { authors, auth, users, articles } = require('../');
+const { authors, auth, users, categories, articles } = require('../');
 
 const client = process.env.DB_CLIENT_TEST;
 const host = process.env.DB_HOST_TEST;
@@ -16,18 +16,28 @@ describe('NodeBlog NPM module', () => {
         expect(typeof blog).toBe('function');
     });
     test('Blog authors should work', async () => {
+        expect.assertions(2);
         const list = await authors.list(blog);
         const getItem = await authors.get(blog, 1);
         expect(typeof list).toBe('object');
         expect(typeof getItem).toBe('object');
     });
     test('Blog users should work', async () => {
+        expect.assertions(2);
         const list = await users.list(blog);
         const getItem = await users.get(blog, 1);
         expect(typeof list).toBe('object');
         expect(typeof getItem).toBe('object');
     });
+    test('Blog categories should work', async () => {
+        expect.assertions(2);
+        const list = await categories.list(blog);
+        const getItem = await categories.get(blog, 1);
+        expect(typeof list).toBe('object');
+        expect(typeof getItem).toBe('object');
+    });
     test('Blog articles should work', async () => {
+        expect.assertions(2);
         const list = await articles.list(blog);
         const getItem = await articles.get(blog, 1);
         expect(typeof list).toBe('object');
