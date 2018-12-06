@@ -1,4 +1,5 @@
 import { useTestDatabase } from './config/index';
+import blog from './config/blog';
 
 const nodeBlog = require('../');
 const { authors, auth, users, categories, articles } = require('../');
@@ -10,21 +11,13 @@ const database = process.env.DB_NAME_TEST;
 const password = process.env.DB_PASS_TEST;
 const debug = process.env.KNEX_DEBUG === 'true';
 
-const nodeBlogArguments = {
-    client,
-    host,
-    user,
-    database,
-    password,
-    debug,
-};
-const blog = nodeBlog(client, host, user, database, password, debug);
+const generatedBlog = nodeBlog(client, host, user, database, password, debug);
 
 useTestDatabase();
 
 describe('NodeBlog NPM module', () => {
     test('NodeBlog to create a knex instance', () => {
-        expect(typeof blog).toBe('function');
+        expect(typeof generatedBlog).toBe('function');
     });
     test('Blog authors should work', async () => {
         expect.assertions(2);
@@ -53,5 +46,20 @@ describe('NodeBlog NPM module', () => {
         const getItem = await articles.get(blog, 1);
         expect(typeof list).toBe('object');
         expect(typeof getItem).toBe('object');
+    });
+    test('Add user should be working', async () => {
+        expect.assertions(1);
+        const newUser = {
+            username: 'anewuser',
+            email: 'anewuser@domain.com',
+            first_name: 'Jane',
+            last_name: 'Doe',
+            password: 'theplainpasswordgoeshere',
+            author_id: 2,
+        };
+        await users.add(blog, newUser);
+        const isAuth =
+            await auth.authenticate(blog, newUser.username, newUser.password);
+        expect(isAuth).toBe(true);
     });
 });
