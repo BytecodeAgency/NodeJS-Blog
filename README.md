@@ -50,6 +50,13 @@ const debug = true || false;
 const blog = nodeBlog(client, host, user, database, password, debug);
 ```
 
+For authentication you should set the following environment (`process.env.[variable] = value`) variables, or the auth methods will not work:
+```
+SALT_ROUNDS=number
+JWT_SECRET=string
+JWT_EXPIRES_IN_DAYS=number_of_days
+```
+
 Then you can use the imported functions as you wish, for example:
 
 ```js
@@ -67,8 +74,10 @@ authors.add(blog, authorObject)
 authors.modify(blog, id, modifiedData)
 authors.delete(blog, id)
 
-auth.authenticate(blog, username, password) // Returns JWT
-auth.validate(blog, username, password) // Valid if data object is returned
+auth.authenticate(blog, username, password) // Returns true/false
+auth.generateToken(blog, username, password) // Returns JWT, throws error if invalid credentials
+auth.decode(jwt) // Returns decoded object
+auth.validate(blog, username, password) // Returns true/false
 
 users.list(blog)
 users.get(blog, id)

@@ -1,7 +1,8 @@
-/* eslint-disable object-curly-newline */ // TODO: Write docs!!!!!!
+/* eslint-disable object-curly-newline */
 
 const getKnexInstance = require('knex');
 const generateKnexfile = require('../database/generate-knexfile');
+const { authHelper } = require('../helpers');
 
 const {
     Authors,
@@ -20,7 +21,9 @@ const authors = {
 };
 
 const auth = {
+    generateToken: Auth.generateToken,
     authenticate: Auth.authenticateUser,
+    decode: authHelper.decodeJWT,
     validate: Auth.validateToken,
 };
 

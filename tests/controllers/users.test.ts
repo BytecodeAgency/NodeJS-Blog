@@ -70,7 +70,7 @@ describe('Test if Users CRUD operations are working correctly', () => {
         const addedUser = await addUser(blog, newUser);
         const hashed = addedUser.password;
         const isValidHash =
-            await checkPasswordHash(blog, unhashedPassword, hashed);
+            await checkPasswordHash(unhashedPassword, hashed);
         expect(hashed).not.toBe(newUser.password);
         expect(isValidHash).toBe(true);
     });

@@ -40,7 +40,7 @@ const generateToken = async (knex, username, password) => {
 };
 
 const validateToken = async (knex, token) => {
-    let decodedToken = '';
+    let decodedToken = null;
 
     // Check if token can be decoded, is valid format
     try {

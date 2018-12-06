@@ -111,7 +111,7 @@ describe('Auth Controller', () => {
         expect.assertions(1);
         const { username } = testUser;
         const tokenPayloadData = await generateTokenPayload(blog, username);
-        const validToken = authHelper.generateJWT(blog, tokenPayloadData);
+        const validToken = authHelper.generateJWT(tokenPayloadData);
         const validTokenIsValid = await validateToken(blog, validToken);
         expect(validTokenIsValid).toBe(true);
     });
