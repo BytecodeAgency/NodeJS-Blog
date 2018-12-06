@@ -89,7 +89,7 @@ const addRelatedArticlesToArticleObject = async (knex, id, article) => {
     return articleWithRelatedArticles;
 };
 
-const getArticle = async (knex, id)=> {
+const getArticle = async (knex, id) => {
     const fields = [
         ...fieldsBase,
         'article_content.html_content',
