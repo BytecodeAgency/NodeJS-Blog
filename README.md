@@ -34,7 +34,7 @@ To use the NodeJS Blog module, first, import the package
 
 ```js
 const nodeBlog = require('nodejs-blog');
-const { authors, auth, users, articles } = require('nodejs-blog');
+const { authors, auth, users, categories, articles } = require('nodejs-blog');
 ```
 
 to start using the package, create a new instance of the NodeBlog class
@@ -76,10 +76,16 @@ users.add(blog, userObject)
 users.modify(blog, id, modifiedData)
 users.delete(blog, id)
 
+categories.list(blog)
+categories.get(blog, id)
+categories.add(blog, categoryObject)
+categories.modify(blog, id, modifiedData)
+categories.delete(blog, id)
+
 articles.list(blog)
 articles.get(blog, id)
 articles.add(blog, articleObject)
-articles.modify(blog, id, modifiedData)
+// articles.modify(blog, id, modifiedData) // not available yet
 articles.delete(blog, id)
 ```
 
@@ -87,9 +93,13 @@ We recommend creating a single file that will create the NodeBlog instance, and 
 
 For security reasons we recommend using environment variables for loading the configuration. This is also in compliance with the [12 factor app Config guidelines](https://12factor.net/config)
 
-Note: NodeJS blog was made to be used with PostgreSQL, but it should(/could) also be compatible with other databases, as it uses KnexJS under the hood.
+Note: NodeJS blog was made to be used with PostgreSQL, but it should(/could) also be compatible with other databases, as it uses [KnexJS](https://knexjs.org) under the hood.
 
-## Running the API as a standalone service
+*A demo application is currently in development*
+
+## Running the API as a standalone service (still in development, might not work 100%)
+
+First clone the repository and `cd` into the directory.
 
 To run NodeJS Blog as a standalone service, run `cp .env.example .env` to create the `.env` file.
 
