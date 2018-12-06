@@ -1,7 +1,7 @@
 /* eslint max-len: ["error", { "code": 100 }] */
 /* eslint-disable prettier/prettier */
 
-const { knex } = require('../helpers');
+// const { knex } = require('../helpers');
 
 const fieldsBase = [
     'articles.id',
@@ -41,7 +41,7 @@ const addReadingTimeToArticles = articles => {
     return articlesWithReadingTime;
 };
 
-const listArticles = async () => {
+const listArticles = async knex => {
     const fields = [
         ...fieldsBase,
         'article_content.html_content',
@@ -58,7 +58,7 @@ const listArticles = async () => {
     return articlesWithReadingTime;
 };
 
-const getRelatedArticles = async id => {
+const getRelatedArticles = async (knex, id) => {
     const fields = [
         ...fieldsBase,
         'article_content.html_content',
@@ -77,8 +77,8 @@ const getRelatedArticles = async id => {
     return articlesWithReadingTime;
 };
 
-const addRelatedArticlesToArticleObject = async (id, article) => {
-    const relatedArticles = await getRelatedArticles(id);
+const addRelatedArticlesToArticleObject = async (knex, id, article) => {
+    const relatedArticles = await getRelatedArticles(knex, id);
     if (relatedArticles.length === 0) {
         return article;
     }
@@ -89,7 +89,7 @@ const addRelatedArticlesToArticleObject = async (id, article) => {
     return articleWithRelatedArticles;
 };
 
-const getArticle = async id => {
+const getArticle = async (knex, id)=> {
     const fields = [
         ...fieldsBase,
         'article_content.html_content',
@@ -103,11 +103,11 @@ const getArticle = async id => {
         .where('articles.id', '=', id);
     const articlesWithReadingTime = addReadingTimeToArticles(articles);
     const articleBase = articlesWithReadingTime[0];
-    const article = await addRelatedArticlesToArticleObject(id, articleBase);
+    const article = await addRelatedArticlesToArticleObject(knex, id, articleBase);
     return article;
 };
 
-const addToArticlesTable = async articleData => {
+const addToArticlesTable = async (knex, articleData) => {
     const returning = ['id', 'title', 'subtitle', 'posted_on', 'slug', 'author', 'category'];
     const addedArticle = await knex('articles')
         .insert([articleData])
@@ -115,7 +115,7 @@ const addToArticlesTable = async articleData => {
     return addedArticle[0];
 };
 
-const addToArticleContentTable = async articleData => {
+const addToArticleContentTable = async (knex, articleData) => {
     const returning = ['summary', 'image_url', 'html_content'];
     const addedArticle = await knex('article_content')
         .insert([articleData])
@@ -134,7 +134,7 @@ const generateRelatedArticles = (id, relatedArticles) => {
     return relatedArticlesObjects;
 };
 
-const addToRelatedArticlesTable = async (id, relatedArticles) => {
+const addToRelatedArticlesTable = async (knex, id, relatedArticles) => {
     if (!relatedArticles || relatedArticles.length === 0) {
         return [];
     }
@@ -145,7 +145,7 @@ const addToRelatedArticlesTable = async (id, relatedArticles) => {
     return addedRelatedArticles;
 };
 
-const addArticle = async article => {
+const addArticle = async (knex, article) => {
     const articleData = {
         title: article.title,
         subtitle: article.subtitle,
@@ -155,7 +155,7 @@ const addArticle = async article => {
         author: article.author,
         category: article.author,
     };
-    const addedArticleData = await addToArticlesTable(articleData);
+    const addedArticleData = await addToArticlesTable(knex, articleData);
     const addedArticleId = addedArticleData.id;
     const articleContentData = {
         article_id: addedArticleId,
@@ -163,20 +163,20 @@ const addArticle = async article => {
         image_url: article.image_url,
         html_content: article.html_content,
     };
-    await addToArticleContentTable(articleContentData);
+    await addToArticleContentTable(knex, articleContentData);
     const relatedArticleIds = article.related_articles;
-    await addToRelatedArticlesTable(addedArticleId, relatedArticleIds);
-    const createdArticle = await getArticle(addedArticleId);
+    await addToRelatedArticlesTable(knex, addedArticleId, relatedArticleIds);
+    const createdArticle = await getArticle(knex, addedArticleId);
     return createdArticle;
 };
 
 // TODO: fix and test better
 // eslint-disable-next-line
-const modifyArticle = async (id, article) => {
+const modifyArticle = async (knex, id, article) => {
     throw new Error('Article modification is not supported');
 };
 
-const deleteArticle = async id => {
+const deleteArticle = async (knex, id) => {
     await knex('related_articles')
         .where({ article_id: id })
         .orWhere({ related_article_id: id })

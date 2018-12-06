@@ -1,4 +1,5 @@
 import { useTestDatabase } from '../config/index';
+import blog from '../config/blog';
 
 const {
     listArticles,
@@ -31,13 +32,13 @@ const newArticle = {
 describe('Articles Controller', () => {
     test('listArticles should return articles array', async () => {
         expect.assertions(1);
-        const articles = await listArticles();
+        const articles = await listArticles(blog);
         expect(articles.length).toBeGreaterThan(0);
     });
 
     test('listArticles articles should include reading time', async () => {
         expect.assertions(1);
-        const articles = await listArticles();
+        const articles = await listArticles(blog);
         expect(typeof articles[0].reading_time).toBe('number');
     });
 
@@ -57,12 +58,12 @@ describe('Articles Controller', () => {
         expect.assertions(2);
         const hidden = { hidden: true };
         const newHiddenArticle = { ...newArticle, ...hidden };
-        const createdArticle = await addArticle(newHiddenArticle);
-        const articles = await listArticles();
+        const createdArticle = await addArticle(blog, newHiddenArticle);
+        const articles = await listArticles(blog);
         const articlesWithNewArticleId = await articles.filter(article => {
             return article.id === createdArticle.id;
         });
-        expect(await getArticle(createdArticle.id)).toBeDefined();
+        expect(await getArticle(blog, createdArticle.id)).toBeDefined();
         expect(articlesWithNewArticleId.length).toBe(0);
     });
 
@@ -72,18 +73,18 @@ describe('Articles Controller', () => {
         const futureDays = date.setDate(date.getDate() + 100);
         const future = { posted_on: new Date(futureDays) };
         const futureArticle = { ...newArticle, ...future };
-        const createdArticle = await addArticle(futureArticle);
-        const articles = await listArticles();
+        const createdArticle = await addArticle(blog, futureArticle);
+        const articles = await listArticles(blog);
         const articlesWithNewArticleId = await articles.filter(article => {
             return article.id === createdArticle.id;
         });
-        expect(await getArticle(createdArticle.id)).toBeDefined();
+        expect(await getArticle(blog, createdArticle.id)).toBeDefined();
         expect(articlesWithNewArticleId.length).toBe(0);
     });
 
     test('getArticle should return an article with content', async () => {
         expect.assertions(14);
-        const article = await getArticle(1);
+        const article = await getArticle(blog, 1);
         expect(typeof article.id).toBe('number');
         expect(typeof article.title).toBe('string');
         expect(typeof article.subtitle).toBe('string');
@@ -132,7 +133,7 @@ describe('Articles Controller', () => {
 
     test('getRelatedArticles should return an article array', async () => {
         expect.assertions(14);
-        const relatedArticles = await getRelatedArticles(1);
+        const relatedArticles = await getRelatedArticles(blog, 1);
         const article = relatedArticles[0];
         expect(typeof article.id).toBe('number');
         expect(typeof article.title).toBe('string');
@@ -165,20 +166,20 @@ describe('Articles Controller', () => {
     test('addToRelatedArticlesTable cant add empty array', async () => {
         expect.assertions(1);
         const emptyArray = [];
-        const response = await addToRelatedArticlesTable(1, emptyArray);
+        const response = await addToRelatedArticlesTable(blog, 1, emptyArray);
         expect(response).toEqual(emptyArray);
     });
 
     test('addToRelatedArticlesTable works with undefined', async () => {
         expect.assertions(1);
         const emptyArray = [];
-        const response = await addToRelatedArticlesTable(1);
+        const response = await addToRelatedArticlesTable(blog, 1);
         expect(response).toEqual(emptyArray);
     });
 
     test('addArticle should add an article correctly', async () => {
         expect.assertions(15);
-        const addedArticle = await addArticle(newArticle);
+        const addedArticle = await addArticle(blog, newArticle);
         expect(typeof addedArticle).toBe('object');
         expect(typeof addedArticle.id).toBe('number');
         expect(typeof addedArticle.title).toBe('string');
@@ -202,7 +203,7 @@ describe('Articles Controller', () => {
     // TODO: Fix
     xtest('modifyArticle should modify an article correctly', async () => {
         expect.assertions(9);
-        await modifyArticle(1, newArticle);
+        await modifyArticle(blog, 1, newArticle);
         const modifiedArticle = await getArticle(1);
         expect(modifiedArticle.title).toBe(newArticle.title);
         expect(modifiedArticle.subtitle).toBe(newArticle.subtitle);
@@ -219,11 +220,11 @@ describe('Articles Controller', () => {
     // TODO: Fix
     xtest('modifyArticle should work with when partly updating', async () => {
         expect.assertions(9);
-        const originalArticle = await getArticle(1);
+        const originalArticle = await getArticle(blog, 1);
         const newArticlePart = {
             title: 'updated title',
         };
-        await modifyArticle(1, newArticlePart);
+        await modifyArticle(blog, 1, newArticlePart);
         const modifiedArticle = await getArticle(newArticlePart);
         expect(modifiedArticle.title).toBe(newArticlePart.title);
         expect(modifiedArticle.subtitle).toBe(originalArticle.subtitle);
@@ -239,8 +240,9 @@ describe('Articles Controller', () => {
 
     test('deleteArticle should delete an article', async () => {
         expect.assertions(2);
-        return deleteArticle(1)
+        return deleteArticle(blog, 1)
             .then(data => expect(data.id).toBe(1))
-            .then(async () => expect(await getArticle(1)).toBeUndefined());
+            .then(async () =>
+                expect(await getArticle(blog, 1)).toBeUndefined());
     });
 });
