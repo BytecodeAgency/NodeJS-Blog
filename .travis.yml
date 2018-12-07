@@ -30,7 +30,7 @@ script:
   - yarn run test
   - yarn run coverage
   - codecov
-  - yarn run build
+  # - yarn run build -- Not needed yet
 
 cache:
   yarn: true
