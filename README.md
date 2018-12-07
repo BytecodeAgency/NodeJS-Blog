@@ -36,7 +36,7 @@ const nodeBlog = require('nodejs-blog');
 const { authors, auth, users, categories, articles } = require('nodejs-blog');
 ```
 
-to start using the package, create a new instance of the NodeBlog class
+to start using the package, create a new blog object:
 
 ```js
 const client = 'YOUR_DB_CLIENT'; // for more info, see https://knexjs.org/
@@ -99,11 +99,11 @@ articles.delete(blog, id)
 
 We recommend creating a single file that will create the NodeBlog instance, and `export` this instance, and `import` in all other files where you want to use NodeJS Blog.
 
-For security reasons we recommend using environment variables for loading the configuration. This is also in compliance with the [12 factor app Config guidelines](https://12factor.net/config)
+For security reasons we recommend using environment variables for loading the configuration. This is also in compliance with the [12 factor app Config guidelines](https://12factor.net/config).
 
 Note: NodeJS blog was made to be used with PostgreSQL, but it should(/could) also be compatible with other databases, as it uses [KnexJS](https://knexjs.org) under the hood.
 
-*A demo application is currently in development*
+*A demo application and a standalone CLI are currently in development*
 
 ## Running the API as a standalone service (still in development, might not work 100%)
 
@@ -124,6 +124,7 @@ For development, the following commands are available:
 | Command | Functionality |
 | - | - |
 | `yarn run dev` | Runs a `nodemon` server for the `server/server.js` file, and exposing the standalone service to your `localhost` |
+| `yarn run cli` | Runs the CLI tool created for simple CRUD operations without accessing the database directly |
 | `yarn run lint` | Runs ESLint, for PRs this should always pass |
 | `yarn run test` | Runs Jest once, for PRs this should always pass. Your database must be available as it is used to run tests on (beware: all existing data will be wiped, we recommend using a separate test-database, this can be set in the `.env` file) |
 | `yarn run test:watch` | Same as `yarn run test`, but it Jest watches for changes |
@@ -131,26 +132,6 @@ For development, the following commands are available:
 | `yarn run migrate` | Migrates your database (normal one, not test database) to the most recent migration, seeds will not be ran |
 | `yarn run reinstall` | Deletes the `node_modules/` folder and reinstalls everything, if you get some stange dependency errors, run this command |
 | `yarn run clean` | Deletes folders `build/`, `dist/` and `coverage/` |
-
-### Folder structure
-
-```md
-.
-├── controllers         Controllers for the module based API
-├── database            All database related files
-│   ├── migrations
-│   └── seeds
-├── helpers             Helper files, for example: logger, database instance
-├── server
-│   ├── controllers
-│   ├── middleware
-│   │   └── modules
-│   └── routes
-├── src                 Source directory for the API exposed by the module
-└── tests               All tests written
-    ├── config
-    └── database
-```
 
 ### Node Environments
 
