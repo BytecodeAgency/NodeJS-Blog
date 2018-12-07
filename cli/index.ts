@@ -1,5 +1,14 @@
 /* tslint:disable: no-console import-name */
 
+/**
+ * TODO: Test this and split up
+ * We know the rules. Don't write production code if there are no failing tests
+ * for the code you're about to write. Any code you write that has no unit tests
+ * should be seen as legacy code. Yes, we get it. This CLI tool should indeed be
+ * tested, but due to time concerns we chose to set this up quick and easy.
+ * Besides, we would like to split this up into a separate module soon.
+ */
+
 import chalk from 'chalk';
 import figlet from 'figlet';
 import inquirer from 'inquirer';
