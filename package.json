@@ -36,7 +36,7 @@
     "dev": "nodemon",
     "cli": "ts-node cli/index.ts",
     "start": "ts-node server/server.ts",
-    "build": "tsc",
+    "build": "yarn run clean && tsc",
     "lint": "yarn run lint:js && yarn run lint:ts",
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:ts": "tslint --project .",
