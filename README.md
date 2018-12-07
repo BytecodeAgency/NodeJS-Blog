@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/BytecodeOpenSource/NodeJS-Blog.svg?branch=master)](https://travis-ci.org/BytecodeOpenSource/NodeJS-Blog)
 [![codecov](https://codecov.io/gh/BytecodeOpenSource/NodeJS-Blog/branch/master/graph/badge.svg)](https://codecov.io/gh/BytecodeOpenSource/NodeJS-Blog)
-<!-- [![Known Vulnerabilities](https://snyk.io/test/github/lucianonooijen/NodeJS-Blog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/lucianonooijen/NodeJS-Blog?targetFile=package.json) -->
+[![Known
+Vulnerabilities](https://snyk.io/test/github/bytecodeopensource/NodeJS-Blog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/bytecodeopensource/NodeJS-Blog?targetFile=package.json)
 [![npm version](https://badge.fury.io/js/nodejs-blog.svg)](https://badge.fury.io/js/nodejs-blog)
 [![NodeJS Version](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)](https://img.shields.io/badge/Node%20Version-%3E%3D%20v8.0.0-green.svg)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
@@ -14,13 +15,13 @@ Blog API developed by Bytecode Digital Agency as free (as in freedom) open sourc
 To install the module, run
 
 ```sh
-yarn add nodejs-api
+yarn add nodejs-blog
 ```
 
 or
 
 ```sh
-npm install nodejs-api
+npm install nodejs-blog
 ```
 
 For contributing to the development, fork the [GitHub repository](https://github.com/lucianonooijen/NodeJS-Blog).
