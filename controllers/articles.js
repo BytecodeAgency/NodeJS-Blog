@@ -9,6 +9,9 @@ const fieldsBase = [
     'articles.subtitle',
     'articles.slug',
     'articles.posted_on',
+    'articles.seo_title',
+    'articles.seo_description',
+    'articles.seo_tags',
     'article_content.image_url AS article_image_url',
     'article_content.summary',
     'authors.name AS author_name',
@@ -154,6 +157,9 @@ const addArticle = async (knex, article) => {
         slug: article.slug,
         author: article.author,
         category: article.author,
+        seo_title: article.seo_title,
+        seo_description: article.seo_description,
+        seo_tags: article.seo_tags,
     };
     const addedArticleData = await addToArticlesTable(knex, articleData);
     const addedArticleId = addedArticleData.id;

@@ -96,6 +96,9 @@ const insertArticles = knex =>
                         subtitle: 'Subtitle Article 1',
                         slug: 'article_one',
                         category: 1,
+                        seo_title: 'Title1',
+                        seo_description: 'Description1',
+                        seo_tags: 'Tags1',
                     },
                     {
                         author: 1,
@@ -103,6 +106,9 @@ const insertArticles = knex =>
                         subtitle: 'Subtitle Article 2',
                         slug: 'article_two',
                         category: 1,
+                        seo_title: 'Title2',
+                        seo_description: 'Description2',
+                        seo_tags: 'Tags2',
                     },
                 ]),
         ); // eslint-disable-line

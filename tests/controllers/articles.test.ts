@@ -26,6 +26,9 @@ const newArticle = {
     html_content: 'the content',
     author: 2,
     category: 1,
+    seo_title: 'Titletest',
+    seo_description: 'Descriptiontest',
+    seo_tags: 'Tagstest',
     related_articles: [1, 2],
 };
 
@@ -83,7 +86,7 @@ describe('Articles Controller', () => {
     });
 
     test('getArticle should return an article with content', async () => {
-        expect.assertions(14);
+        expect.assertions(17);
         const article = await getArticle(blog, 1);
         expect(typeof article.id).toBe('number');
         expect(typeof article.title).toBe('string');
@@ -99,6 +102,9 @@ describe('Articles Controller', () => {
         expect(typeof article.category_name).toBe('string');
         expect(typeof article.category_slug).toBe('string');
         expect(typeof article.reading_time).toBe('number');
+        expect(typeof article.seo_title).toBe('string');
+        expect(typeof article.seo_description).toBe('string');
+        expect(typeof article.seo_tags).toBe('string');
     });
 
     test('calculateReadingTime should calculate reading time', async () => {
