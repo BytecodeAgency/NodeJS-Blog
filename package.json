@@ -92,7 +92,7 @@
     "prettierrc": "^0.0.0-5",
     "response-time": "^2.3.2",
     "sqlite3": "^4.0.3",
-    "supertest": "^3.3.0",
+    "supertest": "^4.0.2",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.1",
