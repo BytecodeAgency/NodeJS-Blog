@@ -1326,14 +1326,6 @@ content-type@~1.0.4:
   resolved "https://registry.yarnpkg.com/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
-continuation-local-storage@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/continuation-local-storage/-/continuation-local-storage-3.2.1.tgz#11f613f74e914fe9b34c92ad2d28fe6ae1db7ffb"
-  integrity sha512-jx44cconVqkCEEyLSKWwkvUXwO561jXMa3LPjTPsm5QR22PA0/mhe33FT4Xb5y74JDvt/Cq+5lm8S8rskLv9ZA==
-  dependencies:
-    async-listener "^0.6.0"
-    emitter-listener "^1.1.1"
-
 convert-source-map@^1.4.0, convert-source-map@^1.5.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.6.0.tgz#51b537a8c43e0f04dec1993bffcdd504e758ac20"
@@ -2131,6 +2123,11 @@ export-files@^2.0.1:
   integrity sha1-u/ZFdAU6CeTrmOX0NQHVcrLDzn8=
   dependencies:
     lazy-cache "^1.0.3"
+
+express-list-endpoints@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/express-list-endpoints/-/express-list-endpoints-4.0.1.tgz#f83ec9de4df21b904cfba523bc913aee4c17e9db"
+  integrity sha512-KjY7frYk72/Jwk2VgqyvuXlTPslEkWkzjUXPUMCUguVmAWqd6fh60VHr+sEfqJgMAOE3hKhUjm/7tLASVaE2Qg==
 
 express@^4.16.4:
   version "4.16.4"
@@ -5989,15 +5986,16 @@ sqlite3@^4.0.3:
     request "^2.87.0"
 
 sqreen@^1.27.1:
-  version "1.27.1"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.27.1.tgz#312d2c074649d0462f077c45132f201d8c5c9dbf"
-  integrity sha512-lBy1Tn1QnXr6bGALJCQMIiGi2+Jh/YYQfaZy4CLIkYC2k/RyCFg2VKV5a0hFrCiylivhA8oYQB9in5tsaHCucA==
+  version "1.32.0"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.32.0.tgz#5ed9a86767dd017e05afb9f3ff1d793706a97fc0"
+  integrity sha512-J0XluUe6QaYUvihj8kOf6+DoE327UDZc9VfYv+NJonc7LyZ/vO0OW+wQDR3kAoNK7dvco2zQ/9Dp0gT3qdPooQ==
   dependencies:
+    async-listener "^0.6.0"
     cls-bluebird "^2.0.1"
     commander "^2.18.0"
-    continuation-local-storage "^3.2.1"
     emitter-listener "^1.1.1"
     escape-html "^1.0.3"
+    express-list-endpoints "4.0.1"
     flat "^4.0.0"
     hoek "^4.2.1"
     http-proxy-agent "^2.1.0"
