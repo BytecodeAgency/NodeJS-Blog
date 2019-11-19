@@ -70,7 +70,7 @@
     "@types/inquirer": "^0.0.43",
     "@types/jest": "^23.3.9",
     "@types/knex": "^0.15.1",
-    "@types/node": "^10.12.9",
+    "@types/node": "^12.12.9",
     "babel-eslint": "^10.0.1",
     "clui": "^0.3.6",
     "eslint": "^4.19.1",
