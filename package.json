@@ -68,7 +68,7 @@
     "@types/express": "^4.16.0",
     "@types/figlet": "^1.2.0",
     "@types/inquirer": "^0.0.43",
-    "@types/jest": "^23.3.9",
+    "@types/jest": "^24.0.23",
     "@types/knex": "^0.15.1",
     "@types/node": "^10.12.9",
     "babel-eslint": "^10.0.1",
